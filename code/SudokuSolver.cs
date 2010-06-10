@@ -180,7 +180,7 @@ namespace Sudoku {
 
         private bool fileOpen;
         private bool fileOpenForAll;
-        private StreamWriter streamWrite;
+        private StreamWriter streamWriter;
         private bool[,] pass2Checked = new bool[Max, Max]; //array[tIndex,tIndex];
         private int m_inputNo;
         private uint[] m_smallField = new uint[Max];
@@ -261,8 +261,8 @@ namespace Sudoku {
                 return result;
             }
 
-            public void GetResultValues(out uint[,] matrix) {
-                matrix = field;
+            public uint[,] GetResultValues() {
+                return field;
             }
 
             private static uint CarreePos(uint aRow, uint aCol) {
@@ -306,11 +306,11 @@ namespace Sudoku {
                 if (sudoku.fileOpen) {
                     for (row = 0; row < Max; row++) {
                         for (col = 0; col < Max; col++) {
-                            sudoku.streamWrite.Write(String.Format("{0,4}", field[row, col].ToString()));
+                            sudoku.streamWriter.Write(String.Format("{0,4}", field[row, col].ToString()));
                         }
-                        sudoku.streamWrite.WriteLine();
+                        sudoku.streamWriter.WriteLine();
                     }
-                    sudoku.streamWrite.WriteLine();
+                    sudoku.streamWriter.WriteLine();
                 }
             }
 
@@ -363,7 +363,7 @@ namespace Sudoku {
                 bool result = true;
                 tryValue.Number = 0;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWrite.WriteLine(m_possibleResult);
+                    sudoku.streamWriter.WriteLine(m_possibleResult);
                 }
                 for (row = 0; row < Max; row++) {
                     for (col = 0; col < Max; col++) {
@@ -384,7 +384,7 @@ namespace Sudoku {
                             }
                             if (possibleResults.Length > 0) {
                                 possibleResults.Length -= 2;
-                                sudoku.streamWrite.WriteLine("[" + (row + 1).ToString() + ", " + (col + 1).ToString() + "] : "
+                                sudoku.streamWriter.WriteLine("[" + (row + 1).ToString() + ", " + (col + 1).ToString() + "] : "
                                    + possibleResults);
                             }
                         }
@@ -400,7 +400,7 @@ namespace Sudoku {
                 uint row, col, value;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWrite.WriteLine(m_evaluate);
+                    sudoku.streamWriter.WriteLine(m_evaluate);
                 }
                 do {
                     result = true;
@@ -414,7 +414,7 @@ namespace Sudoku {
                                 for (value = Min; value <= Max; value++) {
                                     if (BitSet.IsInBitset(fieldEstimation[row, col].Occupied, (int)value)) {
                                         if (sudoku.fileOpenForAll) {
-                                            sudoku.streamWrite.WriteLine(m_insert + value.ToString() + m_to + "["
+                                            sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "["
                                                 + (row + 1).ToString() + "," + (col + 1).ToString() + "]" + m_ein);
                                         }
                                         InsertValue(row, col, value);
@@ -436,7 +436,7 @@ namespace Sudoku {
                 uint testSet;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWrite.WriteLine(m_rowTest);
+                    sudoku.streamWriter.WriteLine(m_rowTest);
                 }
                 result = true;
                 for (row = 0; row < Max; row++) {
@@ -452,7 +452,7 @@ namespace Sudoku {
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWrite.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
+                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
                                         + "," + (col + 1).ToString() + "]" + m_ein);
                                 }
                                 InsertValue(row, col, value);
@@ -462,7 +462,7 @@ namespace Sudoku {
                     }    // if (rows[row].Number < Max)
                     else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWrite.WriteLine(m_row + (row + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_row + (row + 1).ToString() + m_ready);
                         }
                     }
                 }   // for row
@@ -477,7 +477,7 @@ namespace Sudoku {
                 uint testSet;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWrite.WriteLine(m_colTest);
+                    sudoku.streamWriter.WriteLine(m_colTest);
                 }
                 result = true;
                 for (col = 0; col < Max; col++) {
@@ -493,7 +493,7 @@ namespace Sudoku {
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWrite.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
+                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
                                         + "," + (col + 1).ToString() + "]" + m_ein);
                                 }
                                 InsertValue(row, col, value);
@@ -502,7 +502,7 @@ namespace Sudoku {
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWrite.WriteLine(m_column + (col + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_column + (col + 1).ToString() + m_ready);
                         }
                     }
                 }
@@ -517,7 +517,7 @@ namespace Sudoku {
                 uint testSet = 0;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWrite.WriteLine(m_carreeTest);
+                    sudoku.streamWriter.WriteLine(m_carreeTest);
                 }
                 result = true;
                 for (carree = 0; carree < Max; carree++) {
@@ -537,7 +537,7 @@ namespace Sudoku {
                                 value = SingleValueFromSet(testSet);
                                 if (value != 0) {
                                     if (sudoku.fileOpenForAll) {
-                                        sudoku.streamWrite.WriteLine(m_insert + value.ToString() + m_to + "["
+                                        sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "["
                                             + (row + hRow + 1).ToString() + "," + (col + hCol + 1).ToString() + "]" + m_ein);
                                     }
                                     InsertValue(row + hRow, col + hCol, value);
@@ -547,7 +547,7 @@ namespace Sudoku {
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWrite.WriteLine(m_carree + (carree + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_carree + (carree + 1).ToString() + m_ready);
                         }
                     }
                 }
@@ -582,7 +582,7 @@ namespace Sudoku {
                 field.Initialize();
                 fieldEstimation.Initialize();
                 if (sudoku.fileOpen) {
-                    sudoku.streamWrite.WriteLine(m_input);
+                    sudoku.streamWriter.WriteLine(m_input);
                     FieldOutput(sudokuField);
                 }
                 for (row = 0; row < Max; row++) {
@@ -594,7 +594,7 @@ namespace Sudoku {
                 m_validationCounter = 0;
                 ready = Evaluation();
                 if (sudoku.fileOpen) {
-                    sudoku.streamWrite.WriteLine(m_result);
+                    sudoku.streamWriter.WriteLine(m_result);
                     FieldOutput(field);
                 }
                 return ready;
@@ -753,8 +753,8 @@ namespace Sudoku {
 
             mainSudoku.ReCalc = true;
             if (fileOpenForAll) {
-                streamWrite.WriteLine(m_try);
-                streamWrite.WriteLine();
+                streamWriter.WriteLine(m_try);
+                streamWriter.WriteLine();
             }
             do {
                 tryField = (uint[,])mainSudoku.field.Clone();
@@ -765,14 +765,14 @@ namespace Sudoku {
                     testNumber = GetNumber(mainSudoku.tryValue.Occupied);
                     tryField[tryRow, tryCol] = (uint)testNumber;
                     if (fileOpenForAll) {
-                        streamWrite.Write(m_tryIn);
-                        streamWrite.WriteLine("[" + (tryRow + 1).ToString() + ", "
+                        streamWriter.Write(m_tryIn);
+                        streamWriter.WriteLine("[" + (tryRow + 1).ToString() + ", "
                             + (tryCol + 1).ToString() + "] : " + testNumber.ToString());
                     }
                     SolveHelper helperSudoku = new SolveHelper(this);
                     helperSudoku.SetStartValues(tryField);
                     if (helperSudoku.Calculate()) {
-                        helperSudoku.GetResultValues(out outVal);
+                        outVal = helperSudoku.GetResultValues();
                         result = true;
                     } else {
                         //Change variables in mainSudoku for next run
@@ -786,8 +786,8 @@ namespace Sudoku {
                             streamString = m_tryPossible;
                         }
                         if (fileOpenForAll) {
-                            streamWrite.WriteLine(streamString);
-                            streamWrite.WriteLine();
+                            streamWriter.WriteLine(streamString);
+                            streamWriter.WriteLine();
                         }
                         BitSet.Exclude(ref mainSudoku.tryValue.Occupied, testNumber);
                         if (mainSudoku.fieldEstimation[tryRow, tryCol].Number == 0) {
@@ -806,7 +806,7 @@ namespace Sudoku {
                 if (!result && !abort) {
                     result = mainSudoku.Evaluation();
                     if (result) {
-                        mainSudoku.GetResultValues(out outVal);
+                        outVal = mainSudoku.GetResultValues();
                     }
                 }
             }
@@ -841,28 +841,28 @@ namespace Sudoku {
             try {
                 if (mainSudoku.SetStartValues(inVal)) {
                     if (fileOpen) {
-                        streamWrite = new StreamWriter("SudokuSolver.txt");
+                        streamWriter = new StreamWriter("SudokuSolver.txt");
                     }
                     result = mainSudoku.Calculate();
                 }
                 if (result) {
-                    mainSudoku.GetResultValues(out outVal);
+                    outVal = mainSudoku.GetResultValues();
                 } else {
                     result = TryExecute(mainSudoku, ref outVal);
                     if (m_abort) {
                         if (fileOpen) {
-                            streamWrite.WriteLine("Aborted");
+                            streamWriter.WriteLine("Aborted");
                         }
                         errorCode = SudokuError.Aborted;
                     }
                 }
                 if (fileOpen) {
-                    streamWrite.Flush();
+                    streamWriter.Flush();
                 }
             }
             finally {
                 if (fileOpen) {
-                    streamWrite.Close();
+                    streamWriter.Close();
                     fileOpen = false;
                 }
                 m_abort = false;
