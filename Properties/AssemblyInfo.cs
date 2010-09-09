@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("Sudoku Solver")]
 [assembly: AssemblyDescription("Sudoku Solver")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HaboDotNet")]
+[assembly: AssemblyCompany("Harbor")]
 [assembly: AssemblyProduct("Sudoku")]
-[assembly: AssemblyCopyright("Copyright © HaboDotNet 2008")]
+[assembly: AssemblyCopyright("Copyright © Harbor 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
