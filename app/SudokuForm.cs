@@ -10,19 +10,21 @@ using System.Windows.Forms;
 namespace Sudoku {
     public partial class SudokuForm : Form {
 
-        uint[] sudoku1 = { //Example at program start
-  0,0,0, 0,0,0, 0,0,9,
-  0,2,5, 0,0,8, 0,0,0,
-  0,0,0, 4,9,0, 0,6,0,
+        uint[] sudoku1 =  //Example at program start
+        {
+            0,0,0, 0,0,0, 0,0,9,
+            0,2,5, 0,0,8, 0,0,0,
+            0,0,0, 4,9,0, 0,6,0,
 
-  5,0,0, 0,0,0, 1,4,0,
-  0,0,7, 0,0,0, 8,9,0,
-  1,0,3, 0,0,0, 0,7,5,
+            5,0,0, 0,0,0, 1,4,0,
+            0,0,7, 0,0,0, 8,9,0,
+            1,0,3, 0,0,0, 0,7,5,
+ 
+            6,0,0, 0,2,0, 0,0,4,
+            0,3,0, 0,0,4, 0,0,0,
+            7,0,0, 0,6,0, 0,3,0
+        };
 
-  6,0,0, 0,2,0, 0,0,4,
-  0,3,0, 0,0,4, 0,0,0,
-  7,0,0, 0,6,0, 0,3,0};
-        
         private List<TextBox> tbList = new List<TextBox>(81);
         private uint[,] matrix = new uint[SudokuSolver.Max, SudokuSolver.Max];
         private uint[,] outmatrix = new uint[SudokuSolver.Max, SudokuSolver.Max];
@@ -30,6 +32,7 @@ namespace Sudoku {
         private SudokuOption option;
         private SudokuSolver sudoku = new SudokuSolver();
         private bool threadRunning;
+        private bool matrixCleared = true;
         private Thread solveThread;
         public delegate void RunCallback();
         private object m_lock = new object();
@@ -208,6 +211,7 @@ namespace Sudoku {
                     i++;
                 }
             }
+            matrixCleared = false;
         }
 
         private void MatrixToTextBox(uint[,] matrix) {
@@ -217,9 +221,9 @@ namespace Sudoku {
             IEnumerator<TextBox> it = this.tbList.GetEnumerator();
             while (it.MoveNext()) {
                 tb = (TextBox)it.Current;
-                uint i = matrix[row, col];
-                if (i != 0) {
-                    tb.Text = matrix[row, col].ToString();
+                uint value = matrix[row, col];
+                if (value != 0) {
+                    tb.Text = value.ToString();
                 }
                 col++;
                 if (col == SudokuSolver.Max) {
@@ -251,6 +255,7 @@ namespace Sudoku {
                     row++;
                 }
             }
+            matrixCleared = false;
         }
 
         private void ClearTextBoxes() {
@@ -264,6 +269,7 @@ namespace Sudoku {
 
         private void ClearMatrix() {
             Array.Clear(matrix, 0, matrix.Length);
+            matrixCleared = true;
         }
 
         private void newtoolStripMenuItem_Click(object sender, EventArgs e) {
@@ -304,6 +310,9 @@ namespace Sudoku {
             dialog.FileName = "*.xml";
             dialog.Filter = "(*.xml)|*.xml";
             if (dialog.ShowDialog() == DialogResult.OK) {
+                if (matrixCleared) {
+                    TextBoxToMatrix();
+                }
                 SudokuXmlWriter.SaveInputs(matrix, dialog.FileName);
             }
         }
