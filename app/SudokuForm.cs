@@ -382,5 +382,13 @@ namespace Sudoku {
                 option = SudokuOption.WithFile;
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            new AboutDialog().ShowDialog(this);
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show(this, "No help available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

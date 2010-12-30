@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="app\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="app\SudokuSolver.cs">
     </Compile>
     <Compile Include="app\Program.cs">
@@ -61,6 +67,9 @@
     <Compile Include="app\SudokuXmlWriter.cs">
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="app\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="app\SudokuForm.resx">
       <DependentUpon>SudokuForm.cs</DependentUpon>
     </EmbeddedResource>

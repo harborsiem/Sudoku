@@ -132,6 +132,8 @@ namespace Sudoku
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.mainTableLayout.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
@@ -223,7 +225,7 @@ namespace Sudoku
             // 
             this.solveFileToolStripMenuItem.CheckOnClick = true;
             this.solveFileToolStripMenuItem.Name = "solveFileToolStripMenuItem";
-            this.solveFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.solveFileToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.solveFileToolStripMenuItem.Text = "SolveFile";
             this.solveFileToolStripMenuItem.Click += new System.EventHandler(this.solveFileToolStripMenuItem_Click);
             // 
@@ -234,12 +236,15 @@ namespace Sudoku
             this.detailInfosToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.detailInfosToolStripMenuItem.Enabled = false;
             this.detailInfosToolStripMenuItem.Name = "detailInfosToolStripMenuItem";
-            this.detailInfosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.detailInfosToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.detailInfosToolStripMenuItem.Text = "Detail Infos";
             this.detailInfosToolStripMenuItem.Click += new System.EventHandler(this.detailInfosToolStripMenuItem_Click);
             // 
             // toolStripMenuHelp
             // 
+            this.toolStripMenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.toolStripMenuHelp.Name = "toolStripMenuHelp";
             this.toolStripMenuHelp.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuHelp.Text = "?";
@@ -1228,6 +1233,20 @@ namespace Sudoku
             this.tableLayoutPanel1.Size = new System.Drawing.Size(108, 96);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // SudokuForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1372,6 +1391,8 @@ namespace Sudoku
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
