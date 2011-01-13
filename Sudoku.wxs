@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="4E0B12EB-F632-457D-9E47-73CFEE6A89B3" Name="Sudoku Solver" Language="1033" Version="1.0.0.0" Manufacturer="Harbor" UpgradeCode="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
+        <Package Description="Sudoku Solver" Comments="Sudoku Solver Install" InstallerVersion="200" Compressed="yes" Platform="x86" />
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ProgramMenuDir" Name="Sudoku">
+                    <Component Id="StartMenuShortcuts" Guid="C35B6866-F6F7-4AC1-AAC1-960DAF645B3B">
+                        <RegistryValue Id="regBDF80E493A637CB6E0F986D6EA625207" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Value="" Type="string" KeyPath="yes" />
+                        <RemoveFolder Id="ProgramMenuDir" Directory="ProgramMenuDir" On="uninstall" />
+                        <Shortcut Id="UninstallProduct" Directory="ProgramMenuDir" Name="Uninstall Sudoku" ShortName="0gycmcxx" Description="Uninstalls Sudoku" Arguments="/x [ProductCode]" Advertise="no" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Name="Harbor" Id="Harbor">
+                    <Directory Name="Sudoku" Id="Sudoku" />
+                    <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
+                        <File Id="Sudoku_exe" Name="Sudoku.exe" Source="bin\Release\Sudoku.exe" KeyPath="yes" />
+                        <Shortcut Id="ExeShortcut" Name="Sudoku" Directory="ProgramMenuDir" Advertise="yes" WorkingDirectory="Sudoku" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+        <Property Id="PREVIOUSFOUND" Secure="yes" />
+        <UI />
+        <PropertyRef Id="NETFRAMEWORK20" />
+        <Condition Message="This application requires .NET Framework 2.0.">Installed OR NETFRAMEWORK20</Condition>
+        <Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+            <ComponentRef Id="Sudoku_exe" />
+            <ComponentRef Id="StartMenuShortcuts" />
+        </Feature>
+        <UIRef Id="WixUI_Mondo" />
+        <WixVariable Id="WixUILicenseRtf" Value="GPL_License.rtf" />
+    </Product>
+</Wix>
