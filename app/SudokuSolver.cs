@@ -195,7 +195,7 @@ namespace Sudoku {
             // constants
             // #########################################################################
 
-            private const string m_possibleResult = "mögliche Ergebnisse [Zeile, Spalte]";
+            private const string m_possibleResult = "moegliche Ergebnisse [Zeile, Spalte]";
             private const string m_evaluate = "Bewerten";
             private const string m_rowTest = "Zeilentest";
             private const string m_colTest = "Spaltentest";
@@ -841,7 +841,7 @@ namespace Sudoku {
             try {
                 if (mainSudoku.SetStartValues(inVal)) {
                     if (fileOpen) {
-                        streamWriter = new StreamWriter("SudokuSolver.txt");
+                        streamWriter = new StreamWriter("SudokuSolver.txt", false, Encoding.UTF8);
                     }
                     result = mainSudoku.Calculate();
                 }
