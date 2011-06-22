@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Product Id="4E0B12EB-F632-457D-9E47-73CFEE6A89B3" Name="Sudoku Solver" Language="1033" Version="1.0.0.0" Manufacturer="Harbor" UpgradeCode="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
-        <Package Description="Sudoku Solver" Comments="Sudoku Solver Install" InstallerVersion="200" Compressed="yes" Platform="x86" />
+        <Package Description="Sudoku Solver" Comments="Sudoku Solver Install" InstallerVersion="200" Compressed="yes" Platform="x86" InstallScope="perMachine" />
         <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramMenuFolder">

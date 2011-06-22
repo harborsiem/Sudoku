@@ -841,7 +841,12 @@ namespace Sudoku {
             try {
                 if (mainSudoku.SetStartValues(inVal)) {
                     if (fileOpen) {
-                        streamWriter = new StreamWriter("SudokuSolver.txt", false, Encoding.UTF8);
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Sudoku";
+                        if (!Directory.Exists(path)) {
+                            Directory.CreateDirectory(path);
+                        }
+                        string fileName = path + Path.DirectorySeparatorChar + "SudokuSolver.txt";
+                        streamWriter = new StreamWriter(fileName, false, Encoding.UTF8);
                     }
                     result = mainSudoku.Calculate();
                 }
