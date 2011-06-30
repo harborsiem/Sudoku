@@ -195,20 +195,34 @@ namespace Sudoku {
             // constants
             // #########################################################################
 
-            private const string m_possibleResult = "moegliche Ergebnisse [Zeile, Spalte]";
-            private const string m_evaluate = "Bewerten";
-            private const string m_rowTest = "Zeilentest";
-            private const string m_colTest = "Spaltentest";
-            private const string m_carreeTest = "Carreetest";
-            private const string m_input = "Eingabe:";
-            private const string m_result = "Ergebnis:";
-            private const string m_insert = "Fuege ";
-            private const string m_to = " in ";
-            private const string m_ein = " ein";
-            private const string m_row = "Zeile ";
-            private const string m_column = "Spalte ";
-            private const string m_carree = "Carree ";
-            private const string m_ready = " fertig";
+            //private const string m_possibleResult = "moegliche Ergebnisse [Zeile, Spalte]";
+            //private const string m_evaluate = "Bewerten";
+            //private const string m_rowTest = "Zeilentest";
+            //private const string m_colTest = "Spaltentest";
+            //private const string m_carreeTest = "Carreetest";
+            //private const string m_input = "Eingabe:";
+            //private const string m_result = "Ergebnis:";
+            //private const string m_insert = "Fuege ";
+            //private const string m_to = " in ";
+            //private const string m_ein = " ein";
+            //private const string m_row = "Zeile ";
+            //private const string m_column = "Spalte ";
+            //private const string m_carree = "Carree ";
+            //private const string m_ready = " fertig";
+            private const string m_possibleResult = "Possible results [Row, Column]";
+            private const string m_evaluate = "Evaluate";
+            private const string m_rowTest = "Testing rows";
+            private const string m_colTest = "Testing columns";
+            private const string m_carreeTest = "Testing carrees";
+            private const string m_input = "Inputs:";
+            private const string m_result = "Result:";
+            private const string m_insert = "Insert ";
+            private const string m_to = " to ";
+            private const string m_ein = "";
+            private const string m_row = "row ";
+            private const string m_column = "column ";
+            private const string m_carree = "carree ";
+            private const string m_ready = " finished";
 
             // #########################################################################
             // variables
@@ -841,7 +855,7 @@ namespace Sudoku {
             try {
                 if (mainSudoku.SetStartValues(inVal)) {
                     if (fileOpen) {
-                        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar + "Sudoku";
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + Path.DirectorySeparatorChar + "Sudoku";
                         if (!Directory.Exists(path)) {
                             Directory.CreateDirectory(path);
                         }
