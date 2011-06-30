@@ -23,6 +23,7 @@
         /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             this.buttonOK = new System.Windows.Forms.Button();
             this.aboutText = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -46,9 +47,7 @@
             this.aboutText.Name = "aboutText";
             this.aboutText.Size = new System.Drawing.Size(268, 125);
             this.aboutText.TabIndex = 1;
-            this.aboutText.Text = "Sudoku-Solver, Version 1.0.0.0\r\nCopyright (c) Harbor 2010\r\n\r\nInsert values in the" +
-                " text-boxes and press the \"Solve\" menu-button. The program calculates the playfi" +
-                "eld if possible.";
+            this.aboutText.Text = resources.GetString("aboutText.Text");
             // 
             // AboutDialog
             // 
