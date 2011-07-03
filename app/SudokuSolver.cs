@@ -855,7 +855,7 @@ namespace Sudoku {
             try {
                 if (mainSudoku.SetStartValues(inVal)) {
                     if (fileOpen) {
-                        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + Path.DirectorySeparatorChar + "Sudoku";
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + Path.DirectorySeparatorChar + "Sudoku";
                         if (!Directory.Exists(path)) {
                             Directory.CreateDirectory(path);
                         }
