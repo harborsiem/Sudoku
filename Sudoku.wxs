@@ -32,6 +32,6 @@
             <ComponentRef Id="StartMenuShortcuts" />
         </Feature>
         <UIRef Id="WixUI_Mondo" />
-        <WixVariable Id="WixUILicenseRtf" Value="GPL_License.rtf" />
+        <WixVariable Id="WixUILicenseRtf" Value="GPLv3_License.rtf" />
     </Product>
 </Wix>
