@@ -14,8 +14,7 @@
                 </Directory>
             </Directory>
             <Directory Id="ProgramFilesFolder" Name="PFiles">
-                <Directory Name="Harbor" Id="Harbor">
-                    <Directory Name="Sudoku" Id="Sudoku" />
+                <Directory Name="Sudoku" Id="Sudoku">
                     <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
                         <File Id="Sudoku_exe" Name="Sudoku.exe" Source="bin\Release\Sudoku.exe" KeyPath="yes" />
                         <Shortcut Id="ExeShortcut" Name="Sudoku" Directory="ProgramMenuDir" Advertise="yes" WorkingDirectory="Sudoku" Icon="AppIcon.exe" IconIndex="0" />
