@@ -8,7 +8,7 @@
                 <Directory Id="ProgramMenuDir" Name="Sudoku">
                     <Component Id="StartMenuShortcuts" Guid="C35B6866-F6F7-4AC1-AAC1-960DAF645B3B">
                         <RegistryValue Id="regBDF80E493A637CB6E0F986D6EA625207" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Value="" Type="string" KeyPath="yes" />
-                        <RemoveFolder Id="ProgramMenuDir" Directory="ProgramMenuDir" On="uninstall" />
+                        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
                         <Shortcut Id="UninstallProduct" Directory="ProgramMenuDir" Name="Uninstall Sudoku" ShortName="0gycmcxx" Description="Uninstalls Sudoku" Target="[SystemFolder]msiexec.exe" Arguments="/x [ProductCode]" Advertise="no" />
                     </Component>
                 </Directory>
