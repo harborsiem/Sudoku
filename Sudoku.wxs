@@ -3,34 +3,49 @@
     <Product Id="4E0B12EB-F632-457D-9E47-73CFEE6A89B3" Name="Sudoku Solver" Language="1033" Version="1.0.0.0" Manufacturer="Harbor" UpgradeCode="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
         <Package Description="Sudoku Solver" Comments="Sudoku Solver Install" InstallerVersion="200" Compressed="yes" Platform="x86" InstallScope="perMachine" />
         <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed." Schedule="afterInstallValidate" />
+        <Upgrade Id="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
+            <UpgradeVersion OnlyDetect="yes" Property="NEWERFOUND" Minimum="1.0.0" IncludeMinimum="no" />
+        </Upgrade>
+        <CustomAction Id="NoDowngrade" Error="A later version of [ProductName] is already installed." />
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramMenuFolder">
-                <Directory Id="ProgramMenuDir" Name="Sudoku">
-                    <Component Id="StartMenuShortcuts" Guid="C35B6866-F6F7-4AC1-AAC1-960DAF645B3B">
-                        <RegistryValue Id="regBDF80E493A637CB6E0F986D6EA625207" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Value="" Type="string" KeyPath="yes" />
-                        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
-                        <Shortcut Id="UninstallProduct" Directory="ProgramMenuDir" Name="Uninstall Sudoku" ShortName="0gycmcxx" Description="Uninstalls Sudoku" Target="[SystemFolder]msiexec.exe" Arguments="/x [ProductCode]" Advertise="no" />
-                    </Component>
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="Sudoku">
                 </Directory>
             </Directory>
-            <Directory Id="ProgramFilesFolder" Name="PFiles">
-                <Directory Name="Sudoku" Id="Sudoku">
-                    <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
-                        <File Id="Sudoku_exe" Name="Sudoku.exe" Source="bin\Release\Sudoku.exe" KeyPath="yes" />
-                        <Shortcut Id="ExeShortcut" Name="Sudoku" Directory="ProgramMenuDir" Advertise="yes" WorkingDirectory="Sudoku" Icon="AppIcon.exe" IconIndex="0" />
-                    </Component>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Sudoku">
                 </Directory>
             </Directory>
         </Directory>
+
+        <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+            <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
+                <File Id="Sudoku_exe" Name="Sudoku.exe" Source="bin\Release\Sudoku.exe" KeyPath="yes" Checksum="yes" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Id="ApplicationShortcut" Guid="C35B6866-F6F7-4AC1-AAC1-960DAF645B3B">
+                <Shortcut Id="ApplicationStartMenuShortcut" Name="Sudoku" Target="[APPLICATIONROOTDIRECTORY]Sudoku.exe" WorkingDirectory="APPLICATIONROOTDIRECTORY" Icon="AppIcon.exe" IconIndex="0" />
+                <Shortcut Id="UninstallProduct" Name="Uninstall Sudoku" Description="Uninstalls Sudoku" Target="[SystemFolder]msiexec.exe" Arguments="/x [ProductCode]" />
+                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+                <RegistryValue Id="regBDF80E493A637CB6E0F986D6EA625207" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Value="" Type="string" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+
         <Property Id="PREVIOUSFOUND" Secure="yes" />
         <UI />
         <PropertyRef Id="NETFRAMEWORK20" />
         <Condition Message="This application requires .NET Framework 2.0.">Installed OR NETFRAMEWORK20</Condition>
         <Feature Id="DefaultFeature" Title="Main Feature" Level="1">
             <ComponentRef Id="Sudoku_exe" />
-            <ComponentRef Id="StartMenuShortcuts" />
+            <ComponentRef Id="ApplicationShortcut" />
         </Feature>
         <UIRef Id="WixUI_Mondo" />
+        <UIRef Id="WixUI_ErrorProgressText" />
+        <InstallExecuteSequence>
+            <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERFOUND</Custom>
+        </InstallExecuteSequence>
         <Icon Id="AppIcon.exe" SourceFile="App\Sudoku.ico" />
         <WixVariable Id="WixUILicenseRtf" Value="GPLv3_License.rtf" />
     </Product>
