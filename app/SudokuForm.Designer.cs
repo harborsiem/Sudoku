@@ -41,6 +41,8 @@ namespace Sudoku
             this.solveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailInfosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -122,29 +124,27 @@ namespace Sudoku
             this.textBox79 = new System.Windows.Forms.TextBox();
             this.textBox80 = new System.Windows.Forms.TextBox();
             this.textBox81 = new System.Windows.Forms.TextBox();
-            this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.mainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip.SuspendLayout();
-            this.mainTableLayout.SuspendLayout();
-            this.tableLayoutPanel9.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
+            this.mainTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -175,33 +175,33 @@ namespace Sudoku
             // newtoolStripMenuItem
             // 
             this.newtoolStripMenuItem.Name = "newtoolStripMenuItem";
-            this.newtoolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.newtoolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.newtoolStripMenuItem.Text = "New Inputs";
             this.newtoolStripMenuItem.Click += new System.EventHandler(this.newtoolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -225,7 +225,7 @@ namespace Sudoku
             // 
             this.solveFileToolStripMenuItem.CheckOnClick = true;
             this.solveFileToolStripMenuItem.Name = "solveFileToolStripMenuItem";
-            this.solveFileToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.solveFileToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.solveFileToolStripMenuItem.Text = "SolveFile";
             this.solveFileToolStripMenuItem.Click += new System.EventHandler(this.solveFileToolStripMenuItem_Click);
             // 
@@ -236,7 +236,7 @@ namespace Sudoku
             this.detailInfosToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.detailInfosToolStripMenuItem.Enabled = false;
             this.detailInfosToolStripMenuItem.Name = "detailInfosToolStripMenuItem";
-            this.detailInfosToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.detailInfosToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.detailInfosToolStripMenuItem.Text = "Detail Infos";
             this.detailInfosToolStripMenuItem.Click += new System.EventHandler(this.detailInfosToolStripMenuItem_Click);
             // 
@@ -248,6 +248,20 @@ namespace Sudoku
             this.toolStripMenuHelp.Name = "toolStripMenuHelp";
             this.toolStripMenuHelp.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuHelp.Text = "?";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // textBox1
             // 
@@ -978,238 +992,11 @@ namespace Sudoku
             this.textBox81.Size = new System.Drawing.Size(30, 26);
             this.textBox81.TabIndex = 8;
             // 
-            // mainTableLayout
-            // 
-            this.mainTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainTableLayout.AutoSize = true;
-            this.mainTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
-            this.mainTableLayout.ColumnCount = 3;
-            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel9, 2, 2);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel8, 1, 2);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel7, 0, 2);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel6, 2, 1);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel5, 1, 1);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel4, 0, 1);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel3, 2, 0);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.mainTableLayout.Controls.Add(this.tableLayoutPanel1, 0, 0);
-            this.mainTableLayout.Location = new System.Drawing.Point(9, 24);
-            this.mainTableLayout.Margin = new System.Windows.Forms.Padding(0);
-            this.mainTableLayout.Name = "mainTableLayout";
-            this.mainTableLayout.RowCount = 3;
-            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTableLayout.Size = new System.Drawing.Size(354, 318);
-            this.mainTableLayout.TabIndex = 1;
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.AutoSize = true;
-            this.tableLayoutPanel9.ColumnCount = 3;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel9.Controls.Add(this.textBox81, 2, 2);
-            this.tableLayoutPanel9.Controls.Add(this.textBox80, 1, 2);
-            this.tableLayoutPanel9.Controls.Add(this.textBox79, 0, 2);
-            this.tableLayoutPanel9.Controls.Add(this.textBox72, 2, 1);
-            this.tableLayoutPanel9.Controls.Add(this.textBox71, 1, 1);
-            this.tableLayoutPanel9.Controls.Add(this.textBox70, 0, 1);
-            this.tableLayoutPanel9.Controls.Add(this.textBox63, 2, 0);
-            this.tableLayoutPanel9.Controls.Add(this.textBox61, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.textBox62, 1, 0);
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(240, 216);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 3;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel9.TabIndex = 8;
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.AutoSize = true;
-            this.tableLayoutPanel8.ColumnCount = 3;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel8.Controls.Add(this.textBox60, 2, 0);
-            this.tableLayoutPanel8.Controls.Add(this.textBox59, 1, 0);
-            this.tableLayoutPanel8.Controls.Add(this.textBox58, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.textBox69, 2, 1);
-            this.tableLayoutPanel8.Controls.Add(this.textBox68, 1, 1);
-            this.tableLayoutPanel8.Controls.Add(this.textBox67, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this.textBox78, 2, 2);
-            this.tableLayoutPanel8.Controls.Add(this.textBox77, 1, 2);
-            this.tableLayoutPanel8.Controls.Add(this.textBox76, 0, 2);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(123, 216);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 3;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel8.TabIndex = 7;
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.AutoSize = true;
-            this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel7.Controls.Add(this.textBox57, 2, 0);
-            this.tableLayoutPanel7.Controls.Add(this.textBox56, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.textBox55, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.textBox64, 0, 1);
-            this.tableLayoutPanel7.Controls.Add(this.textBox65, 1, 1);
-            this.tableLayoutPanel7.Controls.Add(this.textBox66, 2, 1);
-            this.tableLayoutPanel7.Controls.Add(this.textBox73, 0, 2);
-            this.tableLayoutPanel7.Controls.Add(this.textBox74, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.textBox75, 2, 2);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 216);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 3;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel7.TabIndex = 6;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.AutoSize = true;
-            this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.Controls.Add(this.textBox54, 2, 2);
-            this.tableLayoutPanel6.Controls.Add(this.textBox53, 1, 2);
-            this.tableLayoutPanel6.Controls.Add(this.textBox52, 0, 2);
-            this.tableLayoutPanel6.Controls.Add(this.textBox45, 2, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox44, 1, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox43, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox36, 2, 0);
-            this.tableLayoutPanel6.Controls.Add(this.textBox35, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.textBox34, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(240, 111);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 3;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel6.TabIndex = 5;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.AutoSize = true;
-            this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel5.Controls.Add(this.textBox33, 2, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBox32, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBox31, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBox42, 2, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox41, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox40, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox51, 2, 2);
-            this.tableLayoutPanel5.Controls.Add(this.textBox50, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.textBox49, 0, 2);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(123, 111);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 3;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel5.TabIndex = 4;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel4.Controls.Add(this.textBox30, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.textBox29, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.textBox28, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.textBox37, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBox38, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBox39, 2, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBox46, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.textBox47, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.textBox48, 2, 2);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(6, 111);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel4.TabIndex = 3;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.AutoSize = true;
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.Controls.Add(this.textBox27, 2, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textBox26, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textBox25, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.textBox18, 2, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox17, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox16, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox9, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textBox8, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textBox7, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(240, 6);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel3.TabIndex = 2;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.Controls.Add(this.textBox6, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox5, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox4, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox15, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox14, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox13, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox24, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox23, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox22, 0, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(123, 6);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(108, 96);
-            this.tableLayoutPanel2.TabIndex = 1;
-            // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -1233,23 +1020,264 @@ namespace Sudoku
             this.tableLayoutPanel1.Size = new System.Drawing.Size(108, 96);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // helpToolStripMenuItem
+            // tableLayoutPanel2
             // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.textBox6, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox5, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox4, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox15, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.textBox14, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.textBox13, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.textBox24, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.textBox23, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.textBox22, 0, 2);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(123, 6);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // aboutToolStripMenuItem
+            // tableLayoutPanel3
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.AutoSize = true;
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.textBox27, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox26, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox25, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox18, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textBox17, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textBox16, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textBox9, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textBox8, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.textBox7, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(240, 6);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel3.TabIndex = 2;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel4.Controls.Add(this.textBox30, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBox29, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBox28, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBox37, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.textBox38, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.textBox39, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.textBox46, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.textBox47, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.textBox48, 2, 2);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(6, 111);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel4.TabIndex = 3;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.Controls.Add(this.textBox33, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBox32, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBox31, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBox42, 2, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBox41, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBox40, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBox51, 2, 2);
+            this.tableLayoutPanel5.Controls.Add(this.textBox50, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.textBox49, 0, 2);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(123, 111);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 3;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.AutoSize = true;
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.Controls.Add(this.textBox54, 2, 2);
+            this.tableLayoutPanel6.Controls.Add(this.textBox53, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.textBox52, 0, 2);
+            this.tableLayoutPanel6.Controls.Add(this.textBox45, 2, 1);
+            this.tableLayoutPanel6.Controls.Add(this.textBox44, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.textBox43, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.textBox36, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.textBox35, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.textBox34, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(240, 111);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel6.TabIndex = 5;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.AutoSize = true;
+            this.tableLayoutPanel7.ColumnCount = 3;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel7.Controls.Add(this.textBox57, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox56, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox55, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.textBox64, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox65, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox66, 2, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox73, 0, 2);
+            this.tableLayoutPanel7.Controls.Add(this.textBox74, 1, 2);
+            this.tableLayoutPanel7.Controls.Add(this.textBox75, 2, 2);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(6, 216);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 3;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel7.TabIndex = 6;
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel8.AutoSize = true;
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel8.Controls.Add(this.textBox60, 2, 0);
+            this.tableLayoutPanel8.Controls.Add(this.textBox59, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.textBox58, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.textBox69, 2, 1);
+            this.tableLayoutPanel8.Controls.Add(this.textBox68, 1, 1);
+            this.tableLayoutPanel8.Controls.Add(this.textBox67, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.textBox78, 2, 2);
+            this.tableLayoutPanel8.Controls.Add(this.textBox77, 1, 2);
+            this.tableLayoutPanel8.Controls.Add(this.textBox76, 0, 2);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(123, 216);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 3;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel8.TabIndex = 7;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel9.AutoSize = true;
+            this.tableLayoutPanel9.ColumnCount = 3;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel9.Controls.Add(this.textBox81, 2, 2);
+            this.tableLayoutPanel9.Controls.Add(this.textBox80, 1, 2);
+            this.tableLayoutPanel9.Controls.Add(this.textBox79, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.textBox72, 2, 1);
+            this.tableLayoutPanel9.Controls.Add(this.textBox71, 1, 1);
+            this.tableLayoutPanel9.Controls.Add(this.textBox70, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.textBox63, 2, 0);
+            this.tableLayoutPanel9.Controls.Add(this.textBox61, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.textBox62, 1, 0);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(240, 216);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 3;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(108, 96);
+            this.tableLayoutPanel9.TabIndex = 8;
+            // 
+            // mainTableLayout
+            // 
+            this.mainTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainTableLayout.AutoSize = true;
+            this.mainTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
+            this.mainTableLayout.ColumnCount = 3;
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mainTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel2, 1, 0);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel3, 2, 0);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel4, 0, 1);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel5, 1, 1);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel6, 2, 1);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel7, 0, 2);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel8, 1, 2);
+            this.mainTableLayout.Controls.Add(this.tableLayoutPanel9, 2, 2);
+            this.mainTableLayout.Location = new System.Drawing.Point(9, 24);
+            this.mainTableLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.mainTableLayout.Name = "mainTableLayout";
+            this.mainTableLayout.RowCount = 3;
+            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.mainTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.mainTableLayout.Size = new System.Drawing.Size(354, 318);
+            this.mainTableLayout.TabIndex = 1;
             // 
             // SudokuForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(372, 351);
             this.Controls.Add(this.mainTableLayout);
             this.Controls.Add(this.menuStrip);
@@ -1261,26 +1289,26 @@ namespace Sudoku
             this.Text = "Sudoku Solver";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.mainTableLayout.ResumeLayout(false);
-            this.mainTableLayout.PerformLayout();
-            this.tableLayoutPanel9.ResumeLayout(false);
-            this.tableLayoutPanel9.PerformLayout();
-            this.tableLayoutPanel8.ResumeLayout(false);
-            this.tableLayoutPanel8.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel8.PerformLayout();
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
+            this.mainTableLayout.ResumeLayout(false);
+            this.mainTableLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
