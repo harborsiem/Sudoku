@@ -21,7 +21,7 @@
 
         <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
             <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
-                <File Id="Sudoku_exe" Name="Sudoku.exe" Source="bin\Release\Sudoku.exe" KeyPath="yes" Checksum="yes" />
+                <File Id="Sudoku_exe" Name="Sudoku.exe" Source="Sudoku\bin\Release\Sudoku.exe" KeyPath="yes" Checksum="yes" />
             </Component>
         </DirectoryRef>
         <DirectoryRef Id="ApplicationProgramsFolder">
@@ -46,7 +46,7 @@
         <InstallExecuteSequence>
             <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERFOUND</Custom>
         </InstallExecuteSequence>
-        <Icon Id="AppIcon.exe" SourceFile="App\Sudoku.ico" />
+        <Icon Id="AppIcon.exe" SourceFile="Sudoku\app\Sudoku.ico" />
         <WixVariable Id="WixUILicenseRtf" Value="GPLv3_License.rtf" />
     </Product>
 </Wix>
