@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Sudoku {
     public partial class SudokuForm : Form {
@@ -34,7 +35,7 @@ namespace Sudoku {
         private bool threadRunning;
         private bool textboxesWithOutputs;
         private Thread solveThread;
-        public delegate void RunCallback();
+        internal delegate void RunCallback();
         private object m_lock = new object();
         private object t_lock = new object();
         private RunCallback runDelegate1;
@@ -152,7 +153,7 @@ namespace Sudoku {
                 return;
             } else if (e.KeyValue < 0x30) {
                 string tbNr = tb.Name.Substring("textBox".Length);
-                int listIndex = Int32.Parse(tbNr) - 1;
+                int listIndex = Int32.Parse(tbNr, CultureInfo.InvariantCulture) - 1;
                 int nextIndex;
                 switch (e.KeyCode) {
                     case Keys.Right:
@@ -223,7 +224,7 @@ namespace Sudoku {
                 tb = (TextBox)it.Current;
                 uint value = matrix[row, col];
                 if (value != 0) {
-                    tb.Text = value.ToString();
+                    tb.Text = value.ToString(CultureInfo.InvariantCulture);
                 }
                 col++;
                 if (col == SudokuSolver.Max) {
@@ -244,7 +245,7 @@ namespace Sudoku {
                 if (tb.Text.Length > 0) {
                     ch = Char.Parse(tb.Text);
                     if ((ch >= '1') && (ch <= '9')) {
-                        inputs[row, col] = UInt32.Parse(tb.Text);
+                        inputs[row, col] = UInt32.Parse(tb.Text, CultureInfo.InvariantCulture);
                     } else {
                         ;// MessageBox.Show("Not a number in [" + row.ToString() + ", " + col.ToString() + "]");
                     }

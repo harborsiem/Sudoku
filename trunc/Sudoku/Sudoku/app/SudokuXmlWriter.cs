@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Xml.XPath;
 
 namespace Sudoku {
     public sealed class SudokuXmlWriter {
@@ -52,19 +53,19 @@ namespace Sudoku {
 
                     //row attribute
                     XmlAttribute rowAttr = document.CreateAttribute(SudokuXml.RowAttribute);
-                    rowAttr.Value = (i + 1).ToString();
+                    rowAttr.Value = XmlConvert.ToString(i + 1);
                     itemNode.Attributes.SetNamedItem(rowAttr);
 
                     //column attribute
                     XmlAttribute colAttr = document.CreateAttribute(SudokuXml.ColumnAttribute);
-                    colAttr.Value = (j + 1).ToString();
+                    colAttr.Value = XmlConvert.ToString(j + 1);
                     itemNode.Attributes.SetNamedItem(colAttr);
 
                     //value attribute
                     XmlAttribute valueAttr = document.CreateAttribute(SudokuXml.ValueAttribute);
                     uint value = inputs[i, j];
                     if (value != 0) {
-                        valueAttr.Value = inputs[i, j].ToString();
+                        valueAttr.Value = XmlConvert.ToString(inputs[i, j]);
                     } else {
                         valueAttr.Value = String.Empty;
                     }

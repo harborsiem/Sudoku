@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Globalization;
 
 // #########################################################################
 // basic data types
@@ -133,7 +134,7 @@ namespace Sudoku {
     // class
     // #########################################################################
 
-    public sealed class SudokuSolver {
+    public sealed class SudokuSolver : IDisposable {
         // #########################################################################
         // constants
         // #########################################################################
@@ -320,7 +321,7 @@ namespace Sudoku {
                 if (sudoku.fileOpen) {
                     for (row = 0; row < Max; row++) {
                         for (col = 0; col < Max; col++) {
-                            sudoku.streamWriter.Write(String.Format("{0,4}", field[row, col].ToString()));
+                            sudoku.streamWriter.Write(String.Format(CultureInfo.InvariantCulture, "{0,4}", field[row, col].ToString(CultureInfo.InvariantCulture)));
                         }
                         sudoku.streamWriter.WriteLine();
                     }
@@ -392,13 +393,13 @@ namespace Sudoku {
                             StringBuilder possibleResults = new StringBuilder(32);
                             for (i = Min; i <= Max; i++) {
                                 if (BitSet.IsInBitset(fieldEstimation[row, col].Occupied, (int)i)) {
-                                    possibleResults.Append(i.ToString());
+                                    possibleResults.Append(i.ToString(CultureInfo.InvariantCulture));
                                     possibleResults.Append(", ");
                                 }
                             }
                             if (possibleResults.Length > 0) {
                                 possibleResults.Length -= 2;
-                                sudoku.streamWriter.WriteLine("[" + (row + 1).ToString() + ", " + (col + 1).ToString() + "] : "
+                                sudoku.streamWriter.WriteLine("[" + (row + 1).ToString(CultureInfo.InvariantCulture) + ", " + (col + 1).ToString(CultureInfo.InvariantCulture) + "] : "
                                    + possibleResults);
                             }
                         }
@@ -428,8 +429,8 @@ namespace Sudoku {
                                 for (value = Min; value <= Max; value++) {
                                     if (BitSet.IsInBitset(fieldEstimation[row, col].Occupied, (int)value)) {
                                         if (sudoku.fileOpenForAll) {
-                                            sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "["
-                                                + (row + 1).ToString() + "," + (col + 1).ToString() + "]" + m_ein);
+                                            sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "["
+                                                + (row + 1).ToString(CultureInfo.InvariantCulture) + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
                                         }
                                         InsertValue(row, col, value);
                                         break;
@@ -466,8 +467,8 @@ namespace Sudoku {
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
-                                        + "," + (col + 1).ToString() + "]" + m_ein);
+                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
+                                        + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
                                 }
                                 InsertValue(row, col, value);
                                 result = false;
@@ -476,7 +477,7 @@ namespace Sudoku {
                     }    // if (rows[row].Number < Max)
                     else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_row + (row + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_row + (row + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
                         }
                     }
                 }   // for row
@@ -507,8 +508,8 @@ namespace Sudoku {
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "[" + (row + 1).ToString()
-                                        + "," + (col + 1).ToString() + "]" + m_ein);
+                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
+                                        + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
                                 }
                                 InsertValue(row, col, value);
                                 result = false;
@@ -516,7 +517,7 @@ namespace Sudoku {
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_column + (col + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_column + (col + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
                         }
                     }
                 }
@@ -551,8 +552,8 @@ namespace Sudoku {
                                 value = SingleValueFromSet(testSet);
                                 if (value != 0) {
                                     if (sudoku.fileOpenForAll) {
-                                        sudoku.streamWriter.WriteLine(m_insert + value.ToString() + m_to + "["
-                                            + (row + hRow + 1).ToString() + "," + (col + hCol + 1).ToString() + "]" + m_ein);
+                                        sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "["
+                                            + (row + hRow + 1).ToString(CultureInfo.InvariantCulture) + "," + (col + hCol + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
                                     }
                                     InsertValue(row + hRow, col + hCol, value);
                                     result = false;
@@ -561,7 +562,7 @@ namespace Sudoku {
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_carree + (carree + 1).ToString() + m_ready);
+                            sudoku.streamWriter.WriteLine(m_carree + (carree + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
                         }
                     }
                 }
@@ -619,6 +620,18 @@ namespace Sudoku {
         // functions in class SudokuSolver
         // #########################################################################
 
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing) {
+            if (disposing) {
+                if (fileOpen) {
+                    streamWriter.Dispose();
+                }
+            }
+        }
 
         private bool CompareFields(SolveHelper mainSudoku, SolveHelper helperSudoku) {
             uint row, col;
@@ -780,8 +793,8 @@ namespace Sudoku {
                     tryField[tryRow, tryCol] = (uint)testNumber;
                     if (fileOpenForAll) {
                         streamWriter.Write(m_tryIn);
-                        streamWriter.WriteLine("[" + (tryRow + 1).ToString() + ", "
-                            + (tryCol + 1).ToString() + "] : " + testNumber.ToString());
+                        streamWriter.WriteLine("[" + (tryRow + 1).ToString(CultureInfo.InvariantCulture) + ", "
+                            + (tryCol + 1).ToString(CultureInfo.InvariantCulture) + "] : " + testNumber.ToString(CultureInfo.InvariantCulture));
                     }
                     SolveHelper helperSudoku = new SolveHelper(this);
                     helperSudoku.SetStartValues(tryField);

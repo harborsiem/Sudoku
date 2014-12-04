@@ -50,11 +50,11 @@ namespace Sudoku {
                             string row = itemAttributes.GetNamedItem(SudokuXml.RowAttribute).Value.Trim();
                             string column = itemAttributes.GetNamedItem(SudokuXml.ColumnAttribute).Value.Trim();
                             string value = itemAttributes.GetNamedItem(SudokuXml.ValueAttribute).Value.Trim();
-                            int iRow = Int32.Parse(row);
-                            int iColumn = Int32.Parse(column);
+                            int iRow = XmlConvert.ToInt32(row);
+                            int iColumn = XmlConvert.ToInt32(column);
                             uint uValue = 0;
                             if (!String.IsNullOrEmpty(value)) {
-                                uValue = UInt32.Parse(value);
+                                uValue = XmlConvert.ToUInt32(value);
                             }
                             if (iRow > 0 && iRow <= 9 && iColumn > 0 && iColumn <= 9 && uValue >= 0 && uValue <= 9) {
                                 inputs[iRow - 1, iColumn - 1] = uValue;
