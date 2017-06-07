@@ -9,7 +9,11 @@ using System.Windows.Forms;
 using System.Globalization;
 
 namespace Sudoku {
-    public partial class SudokuForm : Form {
+    public partial class SudokuForm : Form, IView {
+
+        private const int SudokuFieldLength = 81;
+        private const int MaxRowAndCol = 9;
+        private Presenter presenter;
 
         uint[] sudoku1 =  //Example at program start
         {
@@ -26,7 +30,7 @@ namespace Sudoku {
             7,0,0, 0,6,0, 0,3,0
         };
 
-        private List<TextBox> tbList = new List<TextBox>(81);
+        private List<TextBox> tbList;
         private uint[,] inputs = new uint[SudokuSolver.Max, SudokuSolver.Max];
         private uint[,] outputs = new uint[SudokuSolver.Max, SudokuSolver.Max];
         private SudokuError errCode;
@@ -34,7 +38,7 @@ namespace Sudoku {
         private SudokuSolver sudoku = new SudokuSolver();
         private bool threadRunning;
         private bool textboxesWithOutputs;
-        private Thread solveThread;
+        private bool isAbortPossible;
         internal delegate void RunCallback();
         private object m_lock = new object();
         private object t_lock = new object();
@@ -42,17 +46,22 @@ namespace Sudoku {
         private RunCallback runDelegate2;
 
         public SudokuForm() {
+            if (!this.DesignMode) {
+                this.Font = SystemFonts.MessageBoxFont;
+            }
             InitializeComponent();
-            FillTextBoxList();
-            SetTextBoxMask();
-            ClearTextBoxes();
-            ClearMatrix();
+            //presenter = new Presenter(this);
+            InitSudokuFieldList();
+            InitSudokuField();
+            ClearSudokuField();
+            ClearInputsMatrix();
             //ToMatrix();
-            MatrixToTextBox(inputs);
+            ValuesToSudokuField(inputs);
             InitDelegates();
         }
 
-        private void FillTextBoxList() {
+        private void InitSudokuFieldList() {
+            tbList = new List<TextBox>(SudokuFieldLength);
             tbList.Add(textBox1);
             tbList.Add(textBox2);
             tbList.Add(textBox3);
@@ -137,7 +146,7 @@ namespace Sudoku {
         }
 
         private int AdjustIndex(int idx) {
-            if (idx >= 0 && idx < 81) {
+            if (idx >= 0 && idx < SudokuFieldLength) {
                 return idx;
             } else if (idx < 0) {
                 return idx + tbList.Count;
@@ -177,7 +186,7 @@ namespace Sudoku {
                         break;
                 }
             } else {
-                tb.Text = "";
+                tb.Text = string.Empty;
             }
         }
 
@@ -186,11 +195,11 @@ namespace Sudoku {
             if (e.KeyChar >= 0x31 && e.KeyChar <= 0x39) {
                 return;
             } else {
-                tb.Text = "";
+                tb.Text = string.Empty;
             }
         }
 
-        private void SetTextBoxMask() {
+        private void InitSudokuField() {
             TextBox tb;
             IEnumerator<TextBox> it = this.tbList.GetEnumerator();
             while (it.MoveNext()) {
@@ -200,6 +209,7 @@ namespace Sudoku {
                 tb.MaxLength = 1;
                 //tb.Mask = "0";
                 tb.TextAlign = HorizontalAlignment.Center;
+                tb.Font = new Font(this.Font.Name, 12.0f, FontStyle.Regular); 
             }
         }
 
@@ -215,7 +225,10 @@ namespace Sudoku {
             textboxesWithOutputs = false;
         }
 
-        private void MatrixToTextBox(uint[,] matrix) {
+        public void ValuesToSudokuField(uint[,] matrix) {
+            if (matrix.GetLength(0) != MaxRowAndCol && matrix.GetLength(1) != MaxRowAndCol) {
+                new ArgumentException("matrix");
+            }
             uint row = 0;
             uint col = 0;
             TextBox tb;
@@ -234,7 +247,7 @@ namespace Sudoku {
             }
         }
 
-        private void TextBoxToMatrix() {
+        private void SudokuFieldToInputsMatrix() {
             uint row = 0;
             uint col = 0;
             char ch;
@@ -258,28 +271,28 @@ namespace Sudoku {
             }
         }
 
-        private void ClearTextBoxes() {
+        private void ClearSudokuField() {
             TextBox tb;
             IEnumerator<TextBox> it = this.tbList.GetEnumerator();
             while (it.MoveNext()) {
-                tb = (TextBox)it.Current;
-                tb.Text = "";
+                tb = it.Current;
+                tb.Text = string.Empty;
             }
         }
 
-        private void ClearMatrix() {
+        private void ClearInputsMatrix() {
             Array.Clear(inputs, 0, inputs.Length);
         }
 
         private void newtoolStripMenuItem_Click(object sender, EventArgs e) {
             lock (m_lock) {
-                if (threadRunning && solveThread != null) {
+                if (threadRunning && isAbortPossible) {
                     sudoku.Abort = true;
                 }
             }
-            ClearTextBoxes();
+            ClearSudokuField();
             textboxesWithOutputs = false;
-            ClearMatrix();
+            ClearInputsMatrix();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -290,17 +303,17 @@ namespace Sudoku {
             dialog.CheckFileExists = true;
             dialog.CheckPathExists = true;
             if (dialog.ShowDialog() == DialogResult.OK) {
-                ClearTextBoxes();
-                ClearMatrix();
+                ClearSudokuField();
+                ClearInputsMatrix();
                 try {
                     SudokuXmlReader.OpenSudokuFile(inputs, dialog.FileName);
                 }
                 catch (SudokuException ex) {
                     MessageBox.Show(ex.Message);
-                    ClearTextBoxes();
-                    ClearMatrix();
+                    ClearSudokuField();
+                    ClearInputsMatrix();
                 }
-                MatrixToTextBox(inputs);
+                ValuesToSudokuField(inputs);
                 textboxesWithOutputs = false;
             }
         }
@@ -312,7 +325,7 @@ namespace Sudoku {
             dialog.Filter = "(*.xml)|*.xml";
             if (dialog.ShowDialog() == DialogResult.OK) {
                 if (!textboxesWithOutputs) {
-                    TextBoxToMatrix();
+                    SudokuFieldToInputsMatrix();
                 }
                 SudokuXmlWriter.SaveInputs(inputs, dialog.FileName);
             }
@@ -320,11 +333,15 @@ namespace Sudoku {
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             lock (m_lock) {
-                if (threadRunning && solveThread != null) {
+                if (threadRunning && isAbortPossible) {
                     sudoku.Abort = true;
                 }
             }
             Application.Exit();
+        }
+
+        public void ShowError() {
+
         }
 
         private void InitDelegates() {
@@ -332,14 +349,14 @@ namespace Sudoku {
                 threadRunning = true;
                 this.Cursor = Cursors.WaitCursor;
                 solveFileToolStripMenuItem.Enabled = false;
-                TextBoxToMatrix();
+                SudokuFieldToInputsMatrix();
             });
             runDelegate2 = (delegate {
                 if (errCode != SudokuError.None) {
                     //CodeProject.Dialog.MsgBox.Show(this, errCode.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MessageBox.Show(this, errCode.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                MatrixToTextBox(outputs);
+                ValuesToSudokuField(outputs);
                 textboxesWithOutputs = true;
                 solveFileToolStripMenuItem.Enabled = true;
                 this.Cursor = Cursors.Default;
@@ -354,9 +371,9 @@ namespace Sudoku {
             ThreadPool.QueueUserWorkItem(delegate(object obj) {
                 this.Invoke(runDelegate1);
                 lock (t_lock) {
-                    solveThread = Thread.CurrentThread;
+                    isAbortPossible = true;
                     sudoku.Execute(inputs, out outputs, option, out errCode);
-                    solveThread = null;
+                    isAbortPossible = false;
                 }
                 this.Invoke(runDelegate2);
             });

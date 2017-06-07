@@ -9,6 +9,9 @@ using System.Windows.Forms;
 namespace Sudoku {
     public partial class AboutDialog : Form {
         public AboutDialog() {
+            if (!this.DesignMode) {
+                this.Font = SystemFonts.MessageBoxFont;
+            }
             InitializeComponent();
         }
 

@@ -48,6 +48,8 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="app\FxCopSuppressor.cs" />
+    <Compile Include="app\IView.cs" />
+    <Compile Include="app\Presenter.cs" />
     <Compile Include="app\SudokuSolver.cs">
     </Compile>
     <Compile Include="app\Program.cs">
