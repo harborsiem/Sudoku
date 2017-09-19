@@ -10,3 +10,7 @@ If this does not help for the hole field, then the calculation
 
 was done by brute force mechanismen of precalculated result values.
 You can also save a puzzle to an XML-File and open a saved file.
+
+Content of Sudoku.zip is a Windows Msi-File (Installation-file)
+ 
+[Sudoku.zip](https://github.com/harborsiem/Sudoku/files/1313438/Sudoku.zip)
