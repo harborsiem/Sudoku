@@ -249,8 +249,7 @@ namespace Sudoku {
             // functions
             // #########################################################################
 
-            public SolveHelper(SudokuSolver sudoku)
-                : base() {
+            public SolveHelper(SudokuSolver sudoku) {
                 this.sudoku = sudoku;
             }
 

@@ -177,21 +177,18 @@ namespace Sudoku
             this.newtoolStripMenuItem.Name = "newtoolStripMenuItem";
             this.newtoolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.newtoolStripMenuItem.Text = "New Inputs";
-            this.newtoolStripMenuItem.Click += new System.EventHandler(this.newtoolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -203,14 +200,12 @@ namespace Sudoku
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // solveToolStripMenuItem
             // 
             this.solveToolStripMenuItem.Name = "solveToolStripMenuItem";
             this.solveToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.solveToolStripMenuItem.Text = "Solve";
-            this.solveToolStripMenuItem.Click += new System.EventHandler(this.solveToolStripMenuItem_Click);
             // 
             // toolStripMenuOption
             // 
@@ -227,7 +222,6 @@ namespace Sudoku
             this.solveFileToolStripMenuItem.Name = "solveFileToolStripMenuItem";
             this.solveFileToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.solveFileToolStripMenuItem.Text = "SolveFile";
-            this.solveFileToolStripMenuItem.Click += new System.EventHandler(this.solveFileToolStripMenuItem_Click);
             // 
             // detailInfosToolStripMenuItem
             // 
@@ -238,7 +232,6 @@ namespace Sudoku
             this.detailInfosToolStripMenuItem.Name = "detailInfosToolStripMenuItem";
             this.detailInfosToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.detailInfosToolStripMenuItem.Text = "Detail Infos";
-            this.detailInfosToolStripMenuItem.Click += new System.EventHandler(this.detailInfosToolStripMenuItem_Click);
             // 
             // toolStripMenuHelp
             // 
@@ -254,14 +247,12 @@ namespace Sudoku
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // textBox1
             // 

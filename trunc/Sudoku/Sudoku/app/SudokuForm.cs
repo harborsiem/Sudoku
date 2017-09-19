@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sudoku {
-    public partial class SudokuForm : Form, IView {
+    public partial class SudokuForm : Form {
 
-        private const int SudokuFieldLength = 81;
         private const int MaxRowAndCol = 9;
-        private Presenter presenter;
+        private const int SudokuFieldLength = MaxRowAndCol * MaxRowAndCol;
 
-        uint[] sudoku1 =  //Example at program start
+        uint[] sudoku1 =  //Example at program start //only for testing
         {
             0,0,0, 0,0,0, 0,0,9,
             0,2,5, 0,0,8, 0,0,0,
@@ -24,7 +24,7 @@ namespace Sudoku {
             5,0,0, 0,0,0, 1,4,0,
             0,0,7, 0,0,0, 8,9,0,
             1,0,3, 0,0,0, 0,7,5,
- 
+
             6,0,0, 0,2,0, 0,0,4,
             0,3,0, 0,0,4, 0,0,0,
             7,0,0, 0,6,0, 0,3,0
@@ -36,28 +36,41 @@ namespace Sudoku {
         private SudokuError errCode;
         private SudokuOption option;
         private SudokuSolver sudoku = new SudokuSolver();
-        private bool threadRunning;
-        private bool textboxesWithOutputs;
-        private bool isAbortPossible;
-        internal delegate void RunCallback();
-        private object m_lock = new object();
-        private object t_lock = new object();
-        private RunCallback runDelegate1;
-        private RunCallback runDelegate2;
+        private volatile bool threadRunning;
+        private bool outputsInTextboxes;
+        private Action action1;
+        private Action action2;
 
         public SudokuForm() {
             if (!this.DesignMode) {
                 this.Font = SystemFonts.MessageBoxFont;
             }
             InitializeComponent();
-            //presenter = new Presenter(this);
+            InitClickEvents();
             InitSudokuFieldList();
             InitSudokuField();
             ClearSudokuField();
             ClearInputsMatrix();
-            //ToMatrix();
+            //ToMatrix();  //only for testing
             ValuesToSudokuField(inputs);
             InitDelegates();
+        }
+
+        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
+        private void InitClickEvents() {
+            this.newtoolStripMenuItem.Click += new System.EventHandler(this.NewtoolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.solveToolStripMenuItem.Click += new System.EventHandler(this.SolveToolStripMenuItem_Click);
+            this.solveFileToolStripMenuItem.Click += new System.EventHandler(this.SolveFileToolStripMenuItem_Click);
+            this.detailInfosToolStripMenuItem.Click += new System.EventHandler(this.DetailInfosToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.Click += (delegate {
+                MessageBox.Show(this, "No help available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
+            this.aboutToolStripMenuItem.Click += (delegate {
+                new AboutDialog().ShowDialog(this);
+            });
         }
 
         private void InitSudokuFieldList() {
@@ -145,17 +158,209 @@ namespace Sudoku {
             tbList.Add(textBox81);
         }
 
-        private int AdjustIndex(int idx) {
-            if (idx >= 0 && idx < SudokuFieldLength) {
-                return idx;
-            } else if (idx < 0) {
-                return idx + tbList.Count;
-            } else {
-                return idx - tbList.Count;
+        private void InitSudokuField() {
+            TextBox tb;
+            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
+            while (it.MoveNext()) {
+                tb = (TextBox)it.Current;
+                //tb.KeyPress += Tb_KeyPress;
+                tb.KeyUp += Tb_KeyUp;
+                tb.MaxLength = 1;
+                //tb.Mask = "0";
+                tb.TextAlign = HorizontalAlignment.Center;
+                tb.Font = new Font(this.Font.Name, 12.0f, FontStyle.Regular);
             }
         }
 
-        private void tb_KeyUp(object sender, KeyEventArgs e) {
+        private void ClearSudokuField() {
+            TextBox tb;
+            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
+            while (it.MoveNext()) {
+                tb = it.Current;
+                tb.Text = string.Empty;
+            }
+        }
+
+        private void ClearInputsMatrix() {
+            Array.Clear(inputs, 0, inputs.Length);
+        }
+
+        private void ToMatrix() {  //only for testing
+            uint row, col;
+            uint i = 0;
+            for (row = 0; row < SudokuSolver.Max; row++) {
+                for (col = 0; col < SudokuSolver.Max; col++) {
+                    inputs[row, col] = sudoku1[i];
+                    i++;
+                }
+            }
+            outputsInTextboxes = false;
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1814:PreferJaggedArraysOverMultidimensional", MessageId = "0#")]
+        public void ValuesToSudokuField(uint[,] matrix) {
+            if (matrix.GetLength(0) != MaxRowAndCol && matrix.GetLength(1) != MaxRowAndCol) {
+                throw new ArgumentException("Array length invalid", "matrix");
+            }
+            uint row = 0;
+            uint col = 0;
+            TextBox tb;
+            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
+            while (it.MoveNext()) {
+                tb = (TextBox)it.Current;
+                uint value = matrix[row, col];
+                if (value != 0) {
+                    tb.Text = value.ToString(CultureInfo.InvariantCulture);
+                }
+                col++;
+                if (col == SudokuSolver.Max) {
+                    col = 0;
+                    row++;
+                }
+            }
+        }
+
+        private void InitDelegates() {
+            action1 = (delegate {
+                SudokuFieldToInputsMatrix();
+            });
+            action2 = (delegate {
+                if (errCode != SudokuError.None) {
+                    MessageBox.Show(this, errCode.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                ValuesToSudokuField(outputs);
+                outputsInTextboxes = true;
+                solveFileToolStripMenuItem.Enabled = true;
+                this.Cursor = Cursors.Default;
+                threadRunning = false;
+            });
+        }
+
+        private void SudokuFieldToInputsMatrix() {
+            uint row = 0;
+            uint col = 0;
+            char ch;
+            TextBox tb;
+            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
+            while (it.MoveNext()) {
+                tb = (TextBox)it.Current;
+                if (tb.Text.Length > 0) {
+                    ch = Char.Parse(tb.Text);
+                    if ((ch >= '1') && (ch <= '9')) {
+                        inputs[row, col] = UInt32.Parse(tb.Text, CultureInfo.InvariantCulture);
+                    } else {
+                        ;// MessageBox.Show("Not a number in [" + row.ToString() + ", " + col.ToString() + "]");
+                    }
+                }
+                col++;
+                if (col == SudokuSolver.Max) {
+                    col = 0;
+                    row++;
+                }
+            }
+        }
+
+        private void AbortThreadCalculation() {
+            if (threadRunning) {
+                sudoku.Abort = true;
+            }
+            while (threadRunning) {
+                Thread.Sleep(50);
+            }
+            sudoku.Abort = false;
+        }
+
+        private void NewtoolStripMenuItem_Click(object sender, EventArgs e) {
+            AbortThreadCalculation();
+            ClearSudokuField();
+            ClearInputsMatrix();
+            outputsInTextboxes = false;
+        }
+
+        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e) {
+            AbortThreadCalculation();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.DefaultExt = "xml";
+            dialog.FileName = "*.xml";
+            dialog.Filter = "(*.xml)|*.xml";
+            dialog.CheckFileExists = true;
+            dialog.CheckPathExists = true;
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                ClearSudokuField();
+                ClearInputsMatrix();
+                try {
+                    SudokuXmlReader.OpenSudokuFile(inputs, dialog.FileName);
+                }
+                catch (SudokuException ex) {
+                    MessageBox.Show(ex.Message);
+                    ClearSudokuField();
+                    ClearInputsMatrix();
+                }
+                ValuesToSudokuField(inputs);
+                outputsInTextboxes = false;
+            }
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.DefaultExt = "xml";
+            dialog.FileName = "*.xml";
+            dialog.Filter = "(*.xml)|*.xml";
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                if (!outputsInTextboxes) {
+                    SudokuFieldToInputsMatrix();
+                }
+                SudokuXmlWriter.SaveInputs(inputs, dialog.FileName);
+            }
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) {
+            AbortThreadCalculation();
+            Application.Exit();
+        }
+
+        private void SolveToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (threadRunning) {
+                return;
+            }
+            solveFileToolStripMenuItem.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+            threadRunning = true;
+            ThreadPool.QueueUserWorkItem(delegate (object obj) {
+                this.Invoke(action1);
+                sudoku.Execute(inputs, out outputs, option, out errCode);
+                this.Invoke(action2);
+            });
+        }
+
+        private void SolveFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            SudokuOption option;
+            if ((sender as ToolStripMenuItem).Checked) {
+                detailInfosToolStripMenuItem.Enabled = true;
+                if (detailInfosToolStripMenuItem.Checked) {
+                    option = SudokuOption.WithFileAddon;
+                } else {
+                    option = SudokuOption.WithFile;
+                }
+            } else {
+                detailInfosToolStripMenuItem.Enabled = false;
+                option = SudokuOption.None;
+            }
+            this.option = option;
+        }
+
+        private void DetailInfosToolStripMenuItem_Click(object sender, EventArgs e) {
+            SudokuOption option;
+            if ((sender as ToolStripMenuItem).Checked) {
+                option = SudokuOption.WithFileAddon;
+            } else {
+                option = SudokuOption.WithFile;
+            }
+            this.option = option;
+        }
+
+        private void Tb_KeyUp(object sender, KeyEventArgs e) {
             TextBox tb = sender as TextBox;
             if (e.KeyValue >= 0x31 && e.KeyValue <= 0x39) {
                 tb.Select(0, 0);
@@ -190,223 +395,23 @@ namespace Sudoku {
             }
         }
 
-        private void tb_KeyPress(object sender, KeyPressEventArgs e) {
+        private int AdjustIndex(int idx) {
+            if (idx >= 0 && idx < SudokuFieldLength) {
+                return idx;
+            } else if (idx < 0) {
+                return idx + tbList.Count;
+            } else {
+                return idx - tbList.Count;
+            }
+        }
+
+        private void Tb_KeyPress(object sender, KeyPressEventArgs e) {
             TextBox tb = sender as TextBox;
             if (e.KeyChar >= 0x31 && e.KeyChar <= 0x39) {
                 return;
             } else {
                 tb.Text = string.Empty;
             }
-        }
-
-        private void InitSudokuField() {
-            TextBox tb;
-            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
-            while (it.MoveNext()) {
-                tb = (TextBox)it.Current;
-                //tb.KeyPress += tb_KeyPress;
-                tb.KeyUp += tb_KeyUp;
-                tb.MaxLength = 1;
-                //tb.Mask = "0";
-                tb.TextAlign = HorizontalAlignment.Center;
-                tb.Font = new Font(this.Font.Name, 12.0f, FontStyle.Regular); 
-            }
-        }
-
-        private void ToMatrix() {
-            uint row, col;
-            uint i = 0;
-            for (row = 0; row < SudokuSolver.Max; row++) {
-                for (col = 0; col < SudokuSolver.Max; col++) {
-                    inputs[row, col] = sudoku1[i];
-                    i++;
-                }
-            }
-            textboxesWithOutputs = false;
-        }
-
-        public void ValuesToSudokuField(uint[,] matrix) {
-            if (matrix.GetLength(0) != MaxRowAndCol && matrix.GetLength(1) != MaxRowAndCol) {
-                new ArgumentException("matrix");
-            }
-            uint row = 0;
-            uint col = 0;
-            TextBox tb;
-            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
-            while (it.MoveNext()) {
-                tb = (TextBox)it.Current;
-                uint value = matrix[row, col];
-                if (value != 0) {
-                    tb.Text = value.ToString(CultureInfo.InvariantCulture);
-                }
-                col++;
-                if (col == SudokuSolver.Max) {
-                    col = 0;
-                    row++;
-                }
-            }
-        }
-
-        private void SudokuFieldToInputsMatrix() {
-            uint row = 0;
-            uint col = 0;
-            char ch;
-            TextBox tb;
-            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
-            while (it.MoveNext()) {
-                tb = (TextBox)it.Current;
-                if (tb.Text.Length > 0) {
-                    ch = Char.Parse(tb.Text);
-                    if ((ch >= '1') && (ch <= '9')) {
-                        inputs[row, col] = UInt32.Parse(tb.Text, CultureInfo.InvariantCulture);
-                    } else {
-                        ;// MessageBox.Show("Not a number in [" + row.ToString() + ", " + col.ToString() + "]");
-                    }
-                }
-                col++;
-                if (col == SudokuSolver.Max) {
-                    col = 0;
-                    row++;
-                }
-            }
-        }
-
-        private void ClearSudokuField() {
-            TextBox tb;
-            IEnumerator<TextBox> it = this.tbList.GetEnumerator();
-            while (it.MoveNext()) {
-                tb = it.Current;
-                tb.Text = string.Empty;
-            }
-        }
-
-        private void ClearInputsMatrix() {
-            Array.Clear(inputs, 0, inputs.Length);
-        }
-
-        private void newtoolStripMenuItem_Click(object sender, EventArgs e) {
-            lock (m_lock) {
-                if (threadRunning && isAbortPossible) {
-                    sudoku.Abort = true;
-                }
-            }
-            ClearSudokuField();
-            textboxesWithOutputs = false;
-            ClearInputsMatrix();
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.DefaultExt = "xml";
-            dialog.FileName = "*.xml";
-            dialog.Filter = "(*.xml)|*.xml";
-            dialog.CheckFileExists = true;
-            dialog.CheckPathExists = true;
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                ClearSudokuField();
-                ClearInputsMatrix();
-                try {
-                    SudokuXmlReader.OpenSudokuFile(inputs, dialog.FileName);
-                }
-                catch (SudokuException ex) {
-                    MessageBox.Show(ex.Message);
-                    ClearSudokuField();
-                    ClearInputsMatrix();
-                }
-                ValuesToSudokuField(inputs);
-                textboxesWithOutputs = false;
-            }
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.DefaultExt = "xml";
-            dialog.FileName = "*.xml";
-            dialog.Filter = "(*.xml)|*.xml";
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                if (!textboxesWithOutputs) {
-                    SudokuFieldToInputsMatrix();
-                }
-                SudokuXmlWriter.SaveInputs(inputs, dialog.FileName);
-            }
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            lock (m_lock) {
-                if (threadRunning && isAbortPossible) {
-                    sudoku.Abort = true;
-                }
-            }
-            Application.Exit();
-        }
-
-        public void ShowError() {
-
-        }
-
-        private void InitDelegates() {
-            runDelegate1 = (delegate {
-                threadRunning = true;
-                this.Cursor = Cursors.WaitCursor;
-                solveFileToolStripMenuItem.Enabled = false;
-                SudokuFieldToInputsMatrix();
-            });
-            runDelegate2 = (delegate {
-                if (errCode != SudokuError.None) {
-                    //CodeProject.Dialog.MsgBox.Show(this, errCode.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show(this, errCode.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                ValuesToSudokuField(outputs);
-                textboxesWithOutputs = true;
-                solveFileToolStripMenuItem.Enabled = true;
-                this.Cursor = Cursors.Default;
-                threadRunning = false;
-            });
-        }
-
-        private void solveToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (threadRunning) {
-                return;
-            }
-            ThreadPool.QueueUserWorkItem(delegate(object obj) {
-                this.Invoke(runDelegate1);
-                lock (t_lock) {
-                    isAbortPossible = true;
-                    sudoku.Execute(inputs, out outputs, option, out errCode);
-                    isAbortPossible = false;
-                }
-                this.Invoke(runDelegate2);
-            });
-        }
-
-        private void solveFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            if ((sender as ToolStripMenuItem).Checked) {
-                detailInfosToolStripMenuItem.Enabled = true;
-                if (detailInfosToolStripMenuItem.Checked) {
-                    option = SudokuOption.WithFileAddon;
-                } else {
-                    option = SudokuOption.WithFile;
-                }
-            } else {
-                detailInfosToolStripMenuItem.Enabled = false;
-                option = SudokuOption.None;
-            }
-        }
-
-        private void detailInfosToolStripMenuItem_Click(object sender, EventArgs e) {
-            if ((sender as ToolStripMenuItem).Checked) {
-                option = SudokuOption.WithFileAddon;
-            } else {
-                option = SudokuOption.WithFile;
-            }
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            new AboutDialog().ShowDialog(this);
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show(this, "No help available", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
