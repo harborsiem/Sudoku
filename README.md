@@ -14,3 +14,5 @@ You can also save a puzzle to an XML-File and open a saved file.
 Content of Sudoku.zip is a Windows Msi-File (Installation-file)
  
 [Sudoku.zip](https://github.com/harborsiem/Sudoku/files/1313438/Sudoku.zip)
+
+![](./images/Sudoku1.jpg)
