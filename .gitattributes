@@ -1,0 +1,79 @@
+# Catch all for anything we forgot. Add rules if you get CRLF to LF warnings.
+* text=auto
+
+# Text files that should be normalized to LF in odb.
+*.cs     text diff=csharp
+*.xaml   text
+*.config text
+*.c      text
+*.h      text
+*.cpp    text
+*.hpp    text
+
+*.sln     text
+*.csproj  text
+*.vcxproj text
+*.vbproj     text eol=crlf
+*.vcproj     text eol=crlf
+*.dbproj     text eol=crlf
+*.fsproj     text eol=crlf
+*.lsproj     text eol=crlf
+*.wixproj    text eol=crlf
+*.modelproj  text eol=crlf
+*.sqlproj    text eol=crlf
+*.wmaproj    text eol=crlf
+
+*.xproj      text eol=crlf
+*.props      text eol=crlf
+*.filters    text eol=crlf
+*.vcxitems   text eol=crlf
+
+*.md       text
+*.tt       text
+*.sh       text
+*.ps1      text
+*.cmd      text
+*.bat      text
+*.markdown text
+*.msbuild  text
+*.rc       text
+*.html text
+
+
+# Binary files that should not be normalized or diffed
+*.bmp binary
+*.cmp binary
+*.dib binary
+*.gif binary
+*.ico    binary
+*.j2k binary
+*.jb2 binary
+*.jp2 binary
+*.jpg binary
+*.jpeg binary
+*.key binary
+*.otf binary
+*.pdf binary
+*.pfb binary
+*.png binary
+*.tif binary
+*.tiff binary
+*.ttc binary
+*.ttf binary
+*.wmf binary
+*.xml binary
+
+
+*.pfx    binary
+*.snk    binary
+*.dll    binary
+*.exe    binary
+*.lib    binary
+*.exp    binary
+*.pdb    binary
+*.sdf    binary
+*.7z     binary
+
+# Generated file should just use CRLF, it's fiiine
+SolutionInfo.cs text eol=crlf diff=csharp
+
