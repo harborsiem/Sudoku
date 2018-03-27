@@ -117,11 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="aboutText.Text" xml:space="preserve">
-    <value>Sudoku-Solver, Version 1.0.0.0
-Copyright (c) Harbor 2010
-
-Insert values in the text-boxes and press the "Solve" menu-button. The program calculates the playfield if possible.
-If you set the Option "SolveFile" the calculation was shown on the Desktop in Directory Sudoku.</value>
-  </data>
 </root>

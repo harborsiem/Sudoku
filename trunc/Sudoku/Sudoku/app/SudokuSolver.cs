@@ -142,13 +142,13 @@ namespace Sudoku {
         public const uint Max = 9;
 
         private const uint Min = 1;
-        private const uint CMax = 3; //(uint)Math.Sqrt(Max);
+        private const uint CarreeMax = 3; //(uint)Math.Sqrt(Max);
 
         private const uint MinInputValues = 15;
-        private const string m_try = "**********Try*********";
-        private const string m_tryNotOk = "*** Try not OK ***";
-        private const string m_tryPossible = "*** Try is possible ***";
-        private const string m_tryIn = "*** Try in [Row, Column] ";
+        private const string Try = "**********Try*********";
+        private const string TryNotOk = "*** Try not OK ***";
+        private const string TryIsPossible = "*** Try is possible ***";
+        private const string TryInRowColumn = "*** Try in [Row, Column] ";
 
         //public enum tValue { 0 .. Max };
         //public enum tIndex { 0 .. (Max-1) };
@@ -172,7 +172,7 @@ namespace Sudoku {
             public uint Occupied;
             public uint Number; //tValue
             public uint Row; //tIndex
-            public uint Col; //tIndex
+            public uint Column; //tIndex
         }
 
         // #########################################################################
@@ -183,7 +183,6 @@ namespace Sudoku {
         private bool fileOpenForAll;
         private StreamWriter streamWriter;
         private bool[,] pass2Checked = new bool[Max, Max]; //array[tIndex,tIndex];
-        private int m_inputNo;
         private uint[] m_smallField = new uint[Max];
         private bool m_abort;
 
@@ -196,47 +195,47 @@ namespace Sudoku {
             // constants
             // #########################################################################
 
-            //private const string m_possibleResult = "moegliche Ergebnisse [Zeile, Spalte]";
-            //private const string m_evaluate = "Bewerten";
-            //private const string m_rowTest = "Zeilentest";
-            //private const string m_colTest = "Spaltentest";
-            //private const string m_carreeTest = "Carreetest";
-            //private const string m_input = "Eingabe:";
-            //private const string m_result = "Ergebnis:";
-            //private const string m_insert = "Fuege ";
-            //private const string m_to = " in ";
-            //private const string m_ein = " ein";
-            //private const string m_row = "Zeile ";
-            //private const string m_column = "Spalte ";
-            //private const string m_carree = "Carree ";
-            //private const string m_ready = " fertig";
-            private const string m_possibleResult = "Possible results [Row, Column]";
-            private const string m_evaluate = "Evaluate";
-            private const string m_rowTest = "Testing rows";
-            private const string m_colTest = "Testing columns";
-            private const string m_carreeTest = "Testing carrees";
-            private const string m_input = "Inputs:";
-            private const string m_result = "Result:";
-            private const string m_insert = "Insert ";
-            private const string m_to = " to ";
-            private const string m_ein = "";
-            private const string m_row = "row ";
-            private const string m_column = "column ";
-            private const string m_carree = "carree ";
-            private const string m_ready = " finished";
+            //private const string PossibleResults = "moegliche Ergebnisse [Zeile, Spalte]";
+            //private const string EvaluateText = "Bewerten";
+            //private const string RowTest = "Zeilentest";
+            //private const string ColumnTest = "Spaltentest";
+            //private const string CarreeTest = "Carreetest";
+            //private const string Inputs = "Eingabe:";
+            //private const string Result = "Ergebnis:";
+            //private const string Insert = "Fuege ";
+            //private const string To = " in ";
+            //private const string Ein = " ein";
+            //private const string Row = "Zeile ";
+            //private const string Column = "Spalte ";
+            //private const string Carree = "Carree ";
+            //private const string Finished = " fertig";
+            private const string PossibleResults = "Possible results [Row, Column]";
+            private const string EvaluateText = "Evaluate";
+            private const string RowTest = "Testing rows";
+            private const string ColumnTest = "Testing columns";
+            private const string CarreeTest = "Testing carrees";
+            private const string Inputs = "Inputs:";
+            private const string Result = "Result:";
+            private const string Insert = "Insert ";
+            private const string To = " to ";
+            private const string Ein = "";
+            private const string Row = "row ";
+            private const string Column = "column ";
+            private const string Carree = "carree ";
+            private const string Finished = " finished";
 
             // #########################################################################
             // variables
             // #########################################################################
 
-            public uint[,] field = new uint[Max, Max]; // Playing field 
-            //tField = array[tIndex,tIndex] of tValue;
-            public ValueType[,] fieldEstimation = new ValueType[Max, Max]; //array[tIndex,tIndex] of ValueType;
+            public uint[,] board = new uint[Max, Max]; // Playing board 
+            //tBoard = array[tIndex,tIndex] of tValue;
+            public ValueType[,] boardEstimation = new ValueType[Max, Max]; //array[tIndex,tIndex] of ValueType;
             public TryValueType tryValue = new TryValueType();
             private bool m_reCalc;
 
-            private uint[,] sudokuField = new uint[Max, Max]; //sudokuField : tField;
-            private ValueType[] cols = new ValueType[Max]; //array[tIndex];
+            private uint[,] sudokuBoard = new uint[Max, Max]; //sudokuBoard : tBoard;
+            private ValueType[] columns = new ValueType[Max]; //array[tIndex];
             private ValueType[] rows = new ValueType[Max]; //array[tIndex];
             private ValueType[] carrees = new ValueType[Max]; //array[tIndex];
 
@@ -258,17 +257,17 @@ namespace Sudoku {
             }
 
             public bool SetStartValues(uint[,] matrix) {
-                uint row, col;
+                uint row, column;
                 uint value;
                 bool result;
                 result = true;
                 for (row = 0; row < Max; row++) {
-                    for (col = 0; col < Max; col++) {
-                        value = matrix[row, col];
+                    for (column = 0; column < Max; column++) {
+                        value = matrix[row, column];
                         if ((value < 0) || (value > Max)) {
                             result = false;
                         }
-                        sudokuField[row, col] = value;
+                        sudokuBoard[row, column] = value;
                     }
                 }
                 //m_startValuesSet = result;
@@ -276,19 +275,19 @@ namespace Sudoku {
             }
 
             public uint[,] GetResultValues() {
-                return field;
+                return board;
             }
 
-            private static uint CarreePos(uint aRow, uint aCol) {
-                return ((aCol / CMax) + (CMax * (aRow / CMax)));
+            private static uint CarreePos(uint aRow, uint aColumn) {
+                return ((aColumn / CarreeMax) + (CarreeMax * (aRow / CarreeMax)));
             }
 
-            private void InsertValCol(uint aCol, uint value) {
+            private void InsertValColumn(uint aColumn, uint value) {
                 if ((value < Min) || (value > Max)) {
                     return;
                 }
-                BitSet.Include(ref cols[aCol].Occupied, (int)value);
-                cols[aCol].Number++;
+                BitSet.Include(ref columns[aColumn].Occupied, (int)value);
+                columns[aColumn].Number++;
             }
 
             private void InsertValRow(uint aRow, uint value) {
@@ -307,20 +306,20 @@ namespace Sudoku {
                 carrees[aCarree].Number++;
             }
 
-            private void InsertValue(uint aRow, uint aCol, uint value) {
-                field[aRow, aCol] = value;
-                InsertValCol(aCol, value);
+            private void InsertValue(uint aRow, uint aColumn, uint value) {
+                board[aRow, aColumn] = value;
+                InsertValColumn(aColumn, value);
                 InsertValRow(aRow, value);
-                InsertValCarree(CarreePos(aRow, aCol), value);
+                InsertValCarree(CarreePos(aRow, aColumn), value);
                 m_newValCalculated++;
             }
 
-            private void FieldOutput(uint[,] field) {
-                uint row, col;
+            private void BoardOutput(uint[,] board) {
+                uint row, column;
                 if (sudoku.fileOpen) {
                     for (row = 0; row < Max; row++) {
-                        for (col = 0; col < Max; col++) {
-                            sudoku.streamWriter.Write(String.Format(CultureInfo.InvariantCulture, "{0,4}", field[row, col].ToString(CultureInfo.InvariantCulture)));
+                        for (column = 0; column < Max; column++) {
+                            sudoku.streamWriter.Write(String.Format(CultureInfo.InvariantCulture, "{0,4}", board[row, column].ToString(CultureInfo.InvariantCulture)));
                         }
                         sudoku.streamWriter.WriteLine();
                     }
@@ -349,15 +348,15 @@ namespace Sudoku {
                 return result;
             }
 
-            private ValueType Evaluate(uint aRow, uint aCol) {
+            private ValueType Evaluate(uint aRow, uint aColumn) {
                 uint i;
                 ValueType result = new ValueType();
                 m_validationCounter++;
                 result.Number = 0;
                 result.Occupied = 0;
-                if (field[aRow, aCol] == 0) {
-                    result.Occupied = rows[aRow].Occupied | cols[aCol].Occupied |
-                                  carrees[CarreePos(aRow, aCol)].Occupied;
+                if (board[aRow, aColumn] == 0) {
+                    result.Occupied = rows[aRow].Occupied | columns[aColumn].Occupied |
+                                  carrees[CarreePos(aRow, aColumn)].Occupied;
                     for (i = Min; i <= Max; i++) {
                         if (BitSet.IsInBitset(result.Occupied, (int)i)) {
                             BitSet.Exclude(ref result.Occupied, (int)i);
@@ -370,39 +369,39 @@ namespace Sudoku {
                 return result;
             }
 
-            public bool FieldCheck() {
-                uint row, col;
+            public bool BoardCheck() {
+                uint row, column;
                 ValueType estimate;
                 uint i;
                 bool result = true;
                 tryValue.Number = 0;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWriter.WriteLine(m_possibleResult);
+                    sudoku.streamWriter.WriteLine(PossibleResults);
                 }
                 for (row = 0; row < Max; row++) {
-                    for (col = 0; col < Max; col++) {
-                        estimate = fieldEstimation[row, col];
-                        if ((estimate.Number > tryValue.Number) && !(sudoku.pass2Checked[row, col])) {
+                    for (column = 0; column < Max; column++) {
+                        estimate = boardEstimation[row, column];
+                        if ((estimate.Number > tryValue.Number) && !(sudoku.pass2Checked[row, column])) {
                             tryValue.Number = estimate.Number;
                             tryValue.Occupied = estimate.Occupied;
                             tryValue.Row = row;
-                            tryValue.Col = col;
+                            tryValue.Column = column;
                         }
                         if (sudoku.fileOpenForAll) {
                             StringBuilder possibleResults = new StringBuilder(32);
                             for (i = Min; i <= Max; i++) {
-                                if (BitSet.IsInBitset(fieldEstimation[row, col].Occupied, (int)i)) {
+                                if (BitSet.IsInBitset(boardEstimation[row, column].Occupied, (int)i)) {
                                     possibleResults.Append(i.ToString(CultureInfo.InvariantCulture));
                                     possibleResults.Append(", ");
                                 }
                             }
                             if (possibleResults.Length > 0) {
                                 possibleResults.Length -= 2;
-                                sudoku.streamWriter.WriteLine("[" + (row + 1).ToString(CultureInfo.InvariantCulture) + ", " + (col + 1).ToString(CultureInfo.InvariantCulture) + "] : "
+                                sudoku.streamWriter.WriteLine("[" + (row + 1).ToString(CultureInfo.InvariantCulture) + ", " + (column + 1).ToString(CultureInfo.InvariantCulture) + "] : "
                                    + possibleResults);
                             }
                         }
-                        if ((estimate.Number != 0) || (field[row, col] == 0)) {
+                        if ((estimate.Number != 0) || (board[row, column] == 0)) {
                             result = false;
                         }
                     }
@@ -410,28 +409,28 @@ namespace Sudoku {
                 return result;
             }
 
-            private bool FieldEvaluation() {
-                uint row, col, value;
+            private bool BoardEvaluation() {
+                uint row, column, value;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWriter.WriteLine(m_evaluate);
+                    sudoku.streamWriter.WriteLine(EvaluateText);
                 }
                 do {
                     result = true;
                     for (row = 0; row < Max; row++) {
-                        for (col = 0; col < Max; col++) {
+                        for (column = 0; column < Max; column++) {
                             if (!m_reCalc) {
-                                fieldEstimation[row, col] = Evaluate(row, col);
+                                boardEstimation[row, column] = Evaluate(row, column);
                             }
-                            if (fieldEstimation[row, col].Number == 1) {
+                            if (boardEstimation[row, column].Number == 1) {
                                 result = false;
                                 for (value = Min; value <= Max; value++) {
-                                    if (BitSet.IsInBitset(fieldEstimation[row, col].Occupied, (int)value)) {
+                                    if (BitSet.IsInBitset(boardEstimation[row, column].Occupied, (int)value)) {
                                         if (sudoku.fileOpenForAll) {
-                                            sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "["
-                                                + (row + 1).ToString(CultureInfo.InvariantCulture) + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
+                                            sudoku.streamWriter.WriteLine(Insert + value.ToString(CultureInfo.InvariantCulture) + To + "["
+                                                + (row + 1).ToString(CultureInfo.InvariantCulture) + "," + (column + 1).ToString(CultureInfo.InvariantCulture) + "]" + Ein);
                                         }
-                                        InsertValue(row, col, value);
+                                        InsertValue(row, column, value);
                                         break;
                                     }
                                 }
@@ -443,129 +442,129 @@ namespace Sudoku {
                 return result;
             }
 
-            private bool FieldEvaluationRows() {
-                uint row, col;
+            private bool BoardEvaluationRows() {
+                uint row, column;
                 uint i;
                 uint value;
                 uint testSet;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWriter.WriteLine(m_rowTest);
+                    sudoku.streamWriter.WriteLine(RowTest);
                 }
                 result = true;
                 for (row = 0; row < Max; row++) {
                     if (rows[row].Number < Max) {
-                        for (col = 0; col < Max; col++) {
+                        for (column = 0; column < Max; column++) {
                             testSet = 0;
                             for (i = 0; i < Max; i++) {
-                                if (i != col) {
-                                    testSet = testSet | fieldEstimation[row, i].Occupied;
+                                if (i != column) {
+                                    testSet = testSet | boardEstimation[row, i].Occupied;
                                 }
                             }
-                            testSet = fieldEstimation[row, col].Occupied & (~(testSet));
+                            testSet = boardEstimation[row, column].Occupied & (~(testSet));
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
-                                        + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
+                                    sudoku.streamWriter.WriteLine(Insert + value.ToString(CultureInfo.InvariantCulture) + To + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
+                                        + "," + (column + 1).ToString(CultureInfo.InvariantCulture) + "]" + Ein);
                                 }
-                                InsertValue(row, col, value);
+                                InsertValue(row, column, value);
                                 result = false;
                             }
                         }
                     }    // if (rows[row].Number < Max)
                     else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_row + (row + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
+                            sudoku.streamWriter.WriteLine(Row + (row + 1).ToString(CultureInfo.InvariantCulture) + Finished);
                         }
                     }
                 }   // for row
-                FieldEvaluation();
+                BoardEvaluation();
                 return result;
             }
 
-            private bool FieldEvaluationCols() {
-                uint row, col;
+            private bool BoardEvaluationColumns() {
+                uint row, column;
                 uint i;
                 uint value;
                 uint testSet;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWriter.WriteLine(m_colTest);
+                    sudoku.streamWriter.WriteLine(ColumnTest);
                 }
                 result = true;
-                for (col = 0; col < Max; col++) {
-                    if (cols[col].Number < Max) {
+                for (column = 0; column < Max; column++) {
+                    if (columns[column].Number < Max) {
                         for (row = 0; row < Max; row++) {
                             testSet = 0;
                             for (i = 0; i < Max; i++) {
                                 if (i != row) {
-                                    testSet = testSet | fieldEstimation[i, col].Occupied;
+                                    testSet = testSet | boardEstimation[i, column].Occupied;
                                 }
                             }
-                            testSet = fieldEstimation[row, col].Occupied & (~(testSet));
+                            testSet = boardEstimation[row, column].Occupied & (~(testSet));
                             value = SingleValueFromSet(testSet);
                             if (value != 0) {
                                 if (sudoku.fileOpenForAll) {
-                                    sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
-                                        + "," + (col + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
+                                    sudoku.streamWriter.WriteLine(Insert + value.ToString(CultureInfo.InvariantCulture) + To + "[" + (row + 1).ToString(CultureInfo.InvariantCulture)
+                                        + "," + (column + 1).ToString(CultureInfo.InvariantCulture) + "]" + Ein);
                                 }
-                                InsertValue(row, col, value);
+                                InsertValue(row, column, value);
                                 result = false;
                             }
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_column + (col + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
+                            sudoku.streamWriter.WriteLine(Column + (column + 1).ToString(CultureInfo.InvariantCulture) + Finished);
                         }
                     }
                 }
-                FieldEvaluation();
+                BoardEvaluation();
                 return result;
             }
 
-            private bool FieldEvaluationCarrees() {
-                uint row, col, carree;
-                uint i, j, hRow, hCol;
+            private bool BoardEvaluationCarrees() {
+                uint row, column, carree;
+                uint i, j, hRow, hColumn;
                 uint value;
                 uint testSet = 0;
                 bool result;
                 if (sudoku.fileOpenForAll) {
-                    sudoku.streamWriter.WriteLine(m_carreeTest);
+                    sudoku.streamWriter.WriteLine(CarreeTest);
                 }
                 result = true;
                 for (carree = 0; carree < Max; carree++) {
-                    row = (carree / CMax) * CMax;
-                    col = (carree * CMax) % Max;
+                    row = (carree / CarreeMax) * CarreeMax;
+                    column = (carree * CarreeMax) % Max;
                     if (carrees[carree].Number < Max) {
-                        for (hRow = 0; hRow < CMax; hRow++) {
-                            for (hCol = 0; hCol < CMax; hCol++) {
+                        for (hRow = 0; hRow < CarreeMax; hRow++) {
+                            for (hColumn = 0; hColumn < CarreeMax; hColumn++) {
                                 testSet = 0;
-                                for (i = 0; i < CMax; i++) {
-                                    for (j = 0; j < CMax; j++) {
-                                        if (!((i == hRow) && (j == hCol)))
-                                            testSet = testSet | fieldEstimation[row + i, col + j].Occupied;
+                                for (i = 0; i < CarreeMax; i++) {
+                                    for (j = 0; j < CarreeMax; j++) {
+                                        if (!((i == hRow) && (j == hColumn)))
+                                            testSet = testSet | boardEstimation[row + i, column + j].Occupied;
                                     }
                                 }
-                                testSet = fieldEstimation[row + hRow, col + hCol].Occupied & ~testSet;
+                                testSet = boardEstimation[row + hRow, column + hColumn].Occupied & ~testSet;
                                 value = SingleValueFromSet(testSet);
                                 if (value != 0) {
                                     if (sudoku.fileOpenForAll) {
-                                        sudoku.streamWriter.WriteLine(m_insert + value.ToString(CultureInfo.InvariantCulture) + m_to + "["
-                                            + (row + hRow + 1).ToString(CultureInfo.InvariantCulture) + "," + (col + hCol + 1).ToString(CultureInfo.InvariantCulture) + "]" + m_ein);
+                                        sudoku.streamWriter.WriteLine(Insert + value.ToString(CultureInfo.InvariantCulture) + To + "["
+                                            + (row + hRow + 1).ToString(CultureInfo.InvariantCulture) + "," + (column + hColumn + 1).ToString(CultureInfo.InvariantCulture) + "]" + Ein);
                                     }
-                                    InsertValue(row + hRow, col + hCol, value);
+                                    InsertValue(row + hRow, column + hColumn, value);
                                     result = false;
                                 }
                             }
                         }
                     } else {
                         if (sudoku.fileOpenForAll) {
-                            sudoku.streamWriter.WriteLine(m_carree + (carree + 1).ToString(CultureInfo.InvariantCulture) + m_ready);
+                            sudoku.streamWriter.WriteLine(Carree + (carree + 1).ToString(CultureInfo.InvariantCulture) + Finished);
                         }
                     }
                 }
-                FieldEvaluation();
+                BoardEvaluation();
                 return result;
             }
 
@@ -575,41 +574,41 @@ namespace Sudoku {
                 do {
                     m_newValCalculated = 0;
                     do { }
-                    while (!FieldEvaluationRows());
+                    while (!BoardEvaluationRows());
                     do { }
-                    while (!FieldEvaluationCols());
+                    while (!BoardEvaluationColumns());
                     do { }
-                    while (!FieldEvaluationCarrees());
-                    ready = FieldCheck();
+                    while (!BoardEvaluationCarrees());
+                    ready = BoardCheck();
                 }
                 while (!(ready || (m_newValCalculated == 0)));
                 return ready;
             }
 
             public bool Calculate() {
-                uint row, col;
+                uint row, column;
                 bool ready;
 
                 rows.Initialize();
-                cols.Initialize();
+                columns.Initialize();
                 carrees.Initialize();
-                field.Initialize();
-                fieldEstimation.Initialize();
+                board.Initialize();
+                boardEstimation.Initialize();
                 if (sudoku.fileOpen) {
-                    sudoku.streamWriter.WriteLine(m_input);
-                    FieldOutput(sudokuField);
+                    sudoku.streamWriter.WriteLine(Inputs);
+                    BoardOutput(sudokuBoard);
                 }
                 for (row = 0; row < Max; row++) {
-                    for (col = 0; col < Max; col++) {
-                        InsertValue(row, col, sudokuField[row, col]);
+                    for (column = 0; column < Max; column++) {
+                        InsertValue(row, column, sudokuBoard[row, column]);
                     }
                 }
-                FieldEvaluation();
+                BoardEvaluation();
                 m_validationCounter = 0;
                 ready = Evaluation();
                 if (sudoku.fileOpen) {
-                    sudoku.streamWriter.WriteLine(m_result);
-                    FieldOutput(field);
+                    sudoku.streamWriter.WriteLine(Result);
+                    BoardOutput(board);
                 }
                 return ready;
             }
@@ -632,30 +631,30 @@ namespace Sudoku {
             }
         }
 
-        private bool CompareFields(SolveHelper mainSudoku, SolveHelper helperSudoku) {
-            uint row, col;
+        private bool CompareBoardFields(SolveHelper mainSudoku, SolveHelper helperSudoku) {
+            uint row, column;
             uint mainValue, helperValue; //tValue;
             bool result = true;
             for (row = 0; row < Max; row++) {
-                for (col = 0; col < Max; col++) {
-                    helperValue = helperSudoku.field[row, col];
+                for (column = 0; column < Max; column++) {
+                    helperValue = helperSudoku.board[row, column];
                     if (helperValue != 0) {
-                        mainValue = mainSudoku.field[row, col];
+                        mainValue = mainSudoku.board[row, column];
                         if (mainValue != 0) {
                             if (mainValue != helperValue) {
                                 result = false;
                             }
                         } else {
-                            if (!(BitSet.IsInBitset(mainSudoku.fieldEstimation[row, col].Occupied, (int)helperValue))) {
+                            if (!(BitSet.IsInBitset(mainSudoku.boardEstimation[row, column].Occupied, (int)helperValue))) {
                                 result = false;
                             }
                         }
                     } else {
-                        if (helperSudoku.fieldEstimation[row, col].Number == 0) {
+                        if (helperSudoku.boardEstimation[row, column].Number == 0) {
                             result = false;
                         }
-                        if (!(pass2Checked[row, col])) {
-                            if (!(mainSudoku.fieldEstimation[row, col].Occupied >= helperSudoku.fieldEstimation[row, col].Occupied)) {
+                        if (!(pass2Checked[row, column])) {
+                            if (!(mainSudoku.boardEstimation[row, column].Occupied >= helperSudoku.boardEstimation[row, column].Occupied)) {
                                 result = false;
                             }
                         }
@@ -686,24 +685,24 @@ namespace Sudoku {
             return CheckSmallField();
         }
 
-        private bool CheckCol(uint aCol, uint[,] inVal) {
+        private bool CheckColumn(uint aColumn, uint[,] inVal) {
             uint i;
 
             for (i = 0; i < Max; i++) {
-                m_smallField[i] = inVal[i, aCol];
+                m_smallField[i] = inVal[i, aColumn];
             }
             return CheckSmallField();
         }
 
         private bool CheckCarree(uint carree, uint[,] inVal) {
-            uint row, col;
-            uint i, hRow, hCol;
-            row = (carree / CMax) * CMax;
-            col = (carree * CMax) % Max;
+            uint row, column;
+            uint i, hRow, hColumn;
+            row = (carree / CarreeMax) * CarreeMax;
+            column = (carree * CarreeMax) % Max;
             i = 0;
-            for (hRow = 0; hRow < CMax; hRow++) {
-                for (hCol = 0; hCol < CMax; hCol++) {
-                    m_smallField[i] = inVal[row + hRow, col + hCol];
+            for (hRow = 0; hRow < CarreeMax; hRow++) {
+                for (hColumn = 0; hColumn < CarreeMax; hColumn++) {
+                    m_smallField[i] = inVal[row + hRow, column + hColumn];
                     i++;
                 }
             }
@@ -711,14 +710,14 @@ namespace Sudoku {
         }
 
         private bool CheckSmallField() {
-            uint col, i;
+            uint column, i;
             uint value;
 
             bool result = true;
-            for (col = 0; col < Max; col++) {
-                value = m_smallField[col];
-                if ((col < Max) && (value > 0)) {
-                    for (i = col + 1; i < Max; i++) {
+            for (column = 0; column < Max; column++) {
+                value = m_smallField[column];
+                if ((column < Max) && (value > 0)) {
+                    for (i = column + 1; i < Max; i++) {
                         if (value == m_smallField[i]) {
                             result = false;
                         }
@@ -729,24 +728,24 @@ namespace Sudoku {
         }
 
         private SudokuError InputCheck(uint[,] inVal) {
-            uint row, col, i;
+            uint row, column, i;
             uint value;
 
             SudokuError result = SudokuError.None;
-            m_inputNo = 0;
+            int inputNumber = 0;
             for (row = 0; row < Max; row++) {
-                for (col = 0; col < Max; col++) {
-                    value = inVal[row, col];
+                for (column = 0; column < Max; column++) {
+                    value = inVal[row, column];
                     if ((value < 0) || (value > Max)) {
                         result = SudokuError.WrongInput;
                     } else {
                         if (value > 0) {
-                            m_inputNo++;
+                            inputNumber++;
                         }
                     }
                 }
             }
-            if (m_inputNo < MinInputValues) {
+            if (inputNumber < MinInputValues) {
                 result = SudokuError.FewValues;
                 return result;
             }
@@ -756,7 +755,7 @@ namespace Sudoku {
                 }
             }
             for (i = 0; i < Max; i++) {
-                if (!(CheckCol(i, inVal))) {
+                if (!(CheckColumn(i, inVal))) {
                     result = SudokuError.WrongInput;
                 }
             }
@@ -779,21 +778,21 @@ namespace Sudoku {
 
             mainSudoku.ReCalc = true;
             if (fileOpenForAll) {
-                streamWriter.WriteLine(m_try);
+                streamWriter.WriteLine(Try);
                 streamWriter.WriteLine();
             }
             do {
-                tryField = (uint[,])mainSudoku.field.Clone();
+                tryField = (uint[,])mainSudoku.board.Clone();
                 uint tryNumber = mainSudoku.tryValue.Number;
                 uint tryRow = mainSudoku.tryValue.Row;
-                uint tryCol = mainSudoku.tryValue.Col;
+                uint tryColumn = mainSudoku.tryValue.Column;
                 for (int i = 0; i < tryNumber; i++) {
                     testNumber = GetNumber(mainSudoku.tryValue.Occupied);
-                    tryField[tryRow, tryCol] = (uint)testNumber;
+                    tryField[tryRow, tryColumn] = (uint)testNumber;
                     if (fileOpenForAll) {
-                        streamWriter.Write(m_tryIn);
+                        streamWriter.Write(TryInRowColumn);
                         streamWriter.WriteLine("[" + (tryRow + 1).ToString(CultureInfo.InvariantCulture) + ", "
-                            + (tryCol + 1).ToString(CultureInfo.InvariantCulture) + "] : " + testNumber.ToString(CultureInfo.InvariantCulture));
+                            + (tryColumn + 1).ToString(CultureInfo.InvariantCulture) + "] : " + testNumber.ToString(CultureInfo.InvariantCulture));
                     }
                     SolveHelper helperSudoku = new SolveHelper(this);
                     helperSudoku.SetStartValues(tryField);
@@ -802,28 +801,28 @@ namespace Sudoku {
                         result = true;
                     } else {
                         //Change variables in mainSudoku for next run
-                        if (!CompareFields(mainSudoku, helperSudoku)) {
-                            BitSet.Exclude(ref mainSudoku.fieldEstimation[tryRow, tryCol].Occupied, testNumber);
-                            mainSudoku.fieldEstimation[tryRow, tryCol].Number--;
-                            streamString = m_tryNotOk;
+                        if (!CompareBoardFields(mainSudoku, helperSudoku)) {
+                            BitSet.Exclude(ref mainSudoku.boardEstimation[tryRow, tryColumn].Occupied, testNumber);
+                            mainSudoku.boardEstimation[tryRow, tryColumn].Number--;
+                            streamString = TryNotOk;
                         } else {
-                            field = (uint[,])helperSudoku.field.Clone();
-                            fieldEstimation = (ValueType[,])helperSudoku.fieldEstimation.Clone();
-                            streamString = m_tryPossible;
+                            field = (uint[,])helperSudoku.board.Clone();
+                            fieldEstimation = (ValueType[,])helperSudoku.boardEstimation.Clone();
+                            streamString = TryIsPossible;
                         }
                         if (fileOpenForAll) {
                             streamWriter.WriteLine(streamString);
                             streamWriter.WriteLine();
                         }
                         BitSet.Exclude(ref mainSudoku.tryValue.Occupied, testNumber);
-                        if (mainSudoku.fieldEstimation[tryRow, tryCol].Number == 0) {
+                        if (mainSudoku.boardEstimation[tryRow, tryColumn].Number == 0) {
                             abort = true;
                         }
-                        if (mainSudoku.fieldEstimation[tryRow, tryCol].Number == 1) {
-                            mainSudoku.field = (uint[,])field.Clone();
-                            mainSudoku.fieldEstimation = (ValueType[,])fieldEstimation.Clone();
+                        if (mainSudoku.boardEstimation[tryRow, tryColumn].Number == 1) {
+                            mainSudoku.board = (uint[,])field.Clone();
+                            mainSudoku.boardEstimation = (ValueType[,])fieldEstimation.Clone();
                         } else {
-                            pass2Checked[tryRow, tryCol] = true;
+                            pass2Checked[tryRow, tryColumn] = true;
                         }
                     }
                     if (result || abort)
@@ -845,11 +844,22 @@ namespace Sudoku {
             set { m_abort = value; }
         }
 
+        public void Execute(Parameter parameter) {
+            bool result;
+            uint[,] outVal;
+            SudokuError errorCode;
+            result = Execute(parameter.InputValues, out outVal, parameter.Option, out errorCode);
+            parameter.OutputValues = outVal;
+            parameter.ErrorCode = errorCode;
+            parameter.IsCalculated = result;
+        }
+
         public bool Execute(uint[,] inVal, out uint[,] outVal, SudokuOption option, out SudokuError errorCode) {
             SolveHelper mainSudoku;
 
             bool result = false;
             pass2Checked.Initialize();
+            m_smallField.Initialize();
             fileOpen = false;
             fileOpenForAll = false;
             if ((option & SudokuOption.WithFile) != 0) {
@@ -858,7 +868,7 @@ namespace Sudoku {
                     fileOpenForAll = true;
                 }
             }
-            outVal = inVal;
+            outVal = (uint[,])inVal.Clone();
             errorCode = InputCheck(inVal);
             if (errorCode != 0) {
                 return result;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="4E0B12EB-F632-457D-9E47-73CFEE6A89B3" Name="Sudoku Solver" Language="1033" Version="1.0.0.0" Manufacturer="Harbor" UpgradeCode="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
+    <Product Id="4DC220FE-BD4F-45BF-91C1-7469DF47498B" Name="Sudoku Solver" Language="1033" Version="1.1.0.0" Manufacturer="Harbor" UpgradeCode="3B14AA30-AE44-4E89-8E11-7DB43383D7DF">
         <Package Description="Sudoku Solver" Comments="Sudoku Solver Install" InstallerVersion="200" Compressed="yes" Platform="x86" InstallScope="perMachine" />
         <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
         <MajorUpgrade DowngradeErrorMessage="A later version of [ProductName] is already installed." Schedule="afterInstallValidate" />
@@ -14,7 +14,6 @@
                 </Directory>
             </Directory>
         </Directory>
-
         <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
             <Component Id="Sudoku_exe" Guid="F2F11B45-2DAA-4C73-A462-4ED088BBCCD5">
                 <File Id="FileId_Sudoku_exe" Name="Sudoku.exe" Source="Sudoku\bin\Release\Sudoku.exe" KeyPath="yes" Checksum="yes" />
@@ -28,7 +27,6 @@
                 <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Value="" Type="string" KeyPath="yes" />
             </Component>
         </DirectoryRef>
-
         <UI />
         <UIRef Id="WixUI_Minimal" />
         <PropertyRef Id="NETFRAMEWORK35" />

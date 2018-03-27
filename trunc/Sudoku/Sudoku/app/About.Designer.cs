@@ -1,4 +1,4 @@
-﻿namespace Sudoku {
+namespace Sudoku {
     partial class AboutDialog {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -32,12 +32,15 @@
             // 
             // aboutText
             // 
+            this.aboutText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.aboutText.Location = new System.Drawing.Point(3, 3);
             this.aboutText.Multiline = true;
             this.aboutText.Name = "aboutText";
+            this.aboutText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.aboutText.Size = new System.Drawing.Size(268, 125);
             this.aboutText.TabIndex = 1;
-            this.aboutText.Text = resources.GetString("aboutText.Text");
             // 
             // buttonOK
             // 

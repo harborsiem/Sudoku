@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Harbor")]
 [assembly: AssemblyProduct("Sudoku")]
-[assembly: AssemblyCopyright("Copyright © Harbor 2008")]
+[assembly: AssemblyCopyright("Copyright © Harbor 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Resources;
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
